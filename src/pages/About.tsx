@@ -16,7 +16,7 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                src="src\pages\assets\images\Leonardo_Phoenix_10_Ian_28yearold_confident_African_male_devel_0.jpg"
                 alt="Ian Kibugu"
                 className="rounded-lg w-full"
               />
