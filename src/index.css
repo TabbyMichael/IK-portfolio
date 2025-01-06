@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0A192F;
+  --accent: #64FFDA;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#0A192F] text-white font-inter;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins;
+  }
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.neon-glow {
+  text-shadow: 0 0 10px var(--accent),
+               0 0 20px var(--accent),
+               0 0 30px var(--accent);
+}
