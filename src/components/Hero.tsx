@@ -43,7 +43,7 @@ export default function Hero() {
             className="flex items-center justify-center md:justify-start space-x-6"
           >
             <a
-              href="https://github.com/IanKibugu"
+              href="https://github.com/TabbyMichael"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-accent transition-colors duration-300"
@@ -51,7 +51,7 @@ export default function Hero() {
               <Github size={24} />
             </a>
             <a
-              href="https://linkedin.com/in/iankibugu"
+              href="https://www.linkedin.com/in/tabitha-michael-6a9800219/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-accent transition-colors duration-300"
@@ -59,17 +59,17 @@ export default function Hero() {
               <Linkedin size={24} />
             </a>
             <a
-              href="mailto:ian.kibugu@gmail.com"
+              href="mailto:kibuguzian@gmail.com"
               className="text-gray-300 hover:text-accent transition-colors duration-300"
             >
               <Mail size={24} />
             </a>
           </motion.div>
-
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="glass px-8 py-3 rounded-full text-accent border border-accent hover:bg-accent/10 transition-colors duration-300"
+            onClick={() => window.location.href = '/projects'}
           >
             View My Work
           </motion.button>

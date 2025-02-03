@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Code2, ExternalLink } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
 
 interface ProjectCardProps {
   project: {
