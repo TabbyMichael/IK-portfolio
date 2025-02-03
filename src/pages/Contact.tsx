@@ -9,7 +9,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-20 pb-20">
+    <div className="min-h-screen pt-20 pb-20 bg-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -17,21 +17,20 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl font-bold mb-4">Get In Touch</h1>
+          <h1 className="text-4xl font-bold mb-4 text-white">Get In Touch</h1>
           <p className="text-gray-400">Let's work together on something great</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
-          {/* Left Section: Contact Form (2/3 width) */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="col-span-2 bg-gray-50 rounded-lg shadow-lg p-6"
+            className="col-span-2 glass rounded-lg p-8"
           >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="name" className="block text-sm font-medium text-accent">
                   Your Name
                 </label>
                 <input
@@ -39,11 +38,12 @@ export default function Contact() {
                   id="name"
                   name="name"
                   required
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  className="mt-1 block w-full p-3 bg-primary/50 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400"
+                  placeholder="John Doe"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-accent">
                   Your Email
                 </label>
                 <input
@@ -51,11 +51,12 @@ export default function Contact() {
                   id="email"
                   name="email"
                   required
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  className="mt-1 block w-full p-3 bg-primary/50 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400"
+                  placeholder="john@example.com"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="message" className="block text-sm font-medium text-accent">
                   Your Message
                 </label>
                 <textarea
@@ -63,45 +64,57 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   required
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  className="mt-1 block w-full p-3 bg-primary/50 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400"
+                  placeholder="Your message here..."
                 ></textarea>
               </div>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="w-full py-3 px-4 bg-accent/10 text-accent border border-accent rounded-md hover:bg-accent/20 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary transition-colors duration-300"
               >
                 Send Message
-              </button>
+              </motion.button>
             </form>
           </motion.div>
 
-          {/* Right Section: Links (1/3 width) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-6"
+            className="glass p-8 rounded-lg space-y-8"
           >
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex items-center space-x-4">
-                <MapPin className="text-gray-500 w-6 h-6" />
-                <span>123 Developer Lane, Tech City</span>
+                <MapPin className="text-accent w-6 h-6" />
+                <span className="text-gray-300">Nairobi, Kenya</span>
               </div>
               <div className="flex items-center space-x-4">
-                <Phone className="text-gray-500 w-6 h-6" />
-                <span>+1 123 456 7890</span>
+                <Phone className="text-accent w-6 h-6" />
+                <span className="text-gray-300">+254 712 345 678</span>
               </div>
               <div className="flex items-center space-x-4">
-                <Mail className="text-gray-500 w-6 h-6" />
-                <span>ian@developer.com</span>
+                <Mail className="text-accent w-6 h-6" />
+                <span className="text-gray-300">kibuguzian@gmail.com</span>
               </div>
             </div>
-            <div className="flex space-x-4">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <Github className="text-gray-500 w-6 h-6 hover:text-gray-800" />
+            <div className="flex space-x-6">
+              <a 
+                href="https://github.com/TabbyMichael" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent/80 transition-colors duration-300"
+              >
+                <Github className="w-6 h-6" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="text-gray-500 w-6 h-6 hover:text-gray-800" />
+              <a 
+                href="https://www.linkedin.com/in/tabitha-michael-6a9800219/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent/80 transition-colors duration-300"
+              >
+                <Linkedin className="w-6 h-6" />
               </a>
             </div>
           </motion.div>
