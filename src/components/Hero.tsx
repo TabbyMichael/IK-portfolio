@@ -51,7 +51,7 @@ export default function Hero() {
               <Github size={24} />
             </a>
             <a
-              href="https://www.linkedin.com/in/tabitha-michael-6a9800219/"
+              href="https://www.linkedin.com/in/kibugu-ian-6162961ab?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-accent transition-colors duration-300"

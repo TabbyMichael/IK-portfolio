@@ -9,8 +9,8 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-20 pb-20 bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-24 bg-primary">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -21,12 +21,12 @@ export default function Contact() {
           <p className="text-gray-400">Let's work together on something great</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="col-span-2 glass rounded-lg p-8"
+            className="col-span-2 glass rounded-lg p-8 shadow-lg"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -83,7 +83,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="glass p-8 rounded-lg space-y-8"
+            className="glass p-8 rounded-lg space-y-8 shadow-lg h-fit"
           >
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
@@ -109,7 +109,7 @@ export default function Contact() {
                 <Github className="w-6 h-6" />
               </a>
               <a 
-                href="https://www.linkedin.com/in/tabitha-michael-6a9800219/" 
+                href="https://www.linkedin.com/in/kibugu-ian-6162961ab?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-accent hover:text-accent/80 transition-colors duration-300"
