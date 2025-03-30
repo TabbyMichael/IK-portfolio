@@ -28,12 +28,25 @@ export default function About() {
                 beautiful and functional web applications. My journey in tech started with curiosity
                 and has evolved into a professional career through dedication and continuous learning.
               </p>
-              <a
-                href="/resume.pdf"
-                className="inline-block px-6 py-3 rounded-full text-accent border border-accent hover:bg-accent/10 transition-colors duration-300"
-              >
-                Download Resume
-              </a>
+              <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 items-center">
+                <select
+                  className="bg-transparent text-accent border border-accent rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  onChange={(e) => {
+                    const link = document.createElement('a');
+                    link.href = e.target.value;
+                    link.download = e.target.value.split('/').pop() || '';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select Resume</option>
+                  <option value="/Data Specialist.pdf">Data Specialist</option>
+                  <option value="/UXUI.pdf">UX/UI Designer</option>
+                  <option value="/Kibugu ian (1).pdf">General Resume</option>
+                </select>
+              </div>
             </div>
           </div>
         </motion.div>
