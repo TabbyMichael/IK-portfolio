@@ -1,8 +1,10 @@
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
@@ -69,7 +71,7 @@ export default function Hero() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="glass px-8 py-3 rounded-full text-accent border border-accent hover:bg-accent/10 transition-colors duration-300"
-            onClick={() => window.location.href = '/projects'}
+            onClick={() => navigate('/projects')}
           >
             View My Work
           </motion.button>
