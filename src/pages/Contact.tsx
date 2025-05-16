@@ -92,7 +92,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center space-x-4">
                 <Phone className="text-accent w-6 h-6" />
-                <span className="text-gray-300">+254 712 345 678</span>
+                <span className="text-gray-300">+254 701 740 280</span>
               </div>
               <div className="flex items-center space-x-4">
                 <Mail className="text-accent w-6 h-6" />
