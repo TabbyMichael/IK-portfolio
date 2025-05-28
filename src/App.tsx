@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import ParticleBackground from './components/ParticleBackground';
 import ErrorBoundary from './components/common/ErrorBoundary';
-import LoadingSpinner from './components/common/LoadingSpinner';
+import './loader.css';
+import PageLoader from './PageLoader';
 
-// Route configuration
 const routes = [
   { path: '/', component: lazy(() => import('./pages/Home')) },
   { path: '/about', component: lazy(() => import('./pages/About')) },
@@ -17,36 +17,42 @@ const routes = [
   { path: '/testimonials', component: lazy(() => import('./pages/Testimonials')) },
 ] as const;
 
-const LoadingFallback: React.FC = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <LoadingSpinner size={60} />
-  </div>
-);
+const AppRoutes: React.FC = () => {
+  const location = useLocation();
+  const [loading, setLoading] = useState(true);
 
-const App: React.FC = () => {
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds
+    return () => clearTimeout(timer);
+  }, [location]);
+
   return (
-    <ErrorBoundary>
-      <Router>
-        <div className="relative min-h-screen">
-          <ParticleBackground />
-          <Navbar />
-          <main className="relative z-10">
-            <Suspense fallback={<LoadingFallback />}>
-              <Routes>
-                {routes.map(({ path, component: Component }) => (
-                  <Route
-                    key={path}
-                    path={path}
-                    element={<Component />}
-                  />
-                ))}
-              </Routes>
-            </Suspense>
-          </main>
-        </div>
-      </Router>
-    </ErrorBoundary>
+    <>
+      {loading && <PageLoader />}
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          {routes.map(({ path, component: Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+        </Routes>
+      </Suspense>
+    </>
   );
 };
+
+const App: React.FC = () => (
+  <ErrorBoundary>
+    <Router>
+      <div className="relative min-h-screen">
+        <ParticleBackground />
+        <Navbar />
+        <main className="relative z-10">
+          <AppRoutes />
+        </main>
+      </div>
+    </Router>
+  </ErrorBoundary>
+);
 
 export default App;
