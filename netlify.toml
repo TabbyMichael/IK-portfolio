@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Allow GA tracking ID to be exposed in build (it's meant to be public)
+  SECRETS_SCAN_OMIT_KEYS = "VITE_GA_TRACKING_ID"
+
+# Deploy Preview settings
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    SECRETS_SCAN_OMIT_KEYS = "VITE_GA_TRACKING_ID"
+
+# Production settings  
+[context.production]
+  [context.production.environment]
+    SECRETS_SCAN_OMIT_KEYS = "VITE_GA_TRACKING_ID"

@@ -1,11 +1,52 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import ContactMap from '../components/contact/ContactMap';
+import { useState } from 'react';
 
 export default function Contact() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted');
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          ...formData
+        }).toString()
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -28,7 +69,16 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
             className="col-span-2 glass rounded-lg p-8 shadow-lg"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form 
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <input type="hidden" name="bot-field" />
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-accent">
                   Your Name
@@ -38,6 +88,8 @@ export default function Contact() {
                   id="name"
                   name="name"
                   required
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="mt-1 block w-full p-3 bg-primary/50 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400"
                   placeholder="John Doe"
                 />
@@ -51,6 +103,8 @@ export default function Contact() {
                   id="email"
                   name="email"
                   required
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="mt-1 block w-full p-3 bg-primary/50 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400"
                   placeholder="john@example.com"
                 />
@@ -64,6 +118,8 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   required
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className="mt-1 block w-full p-3 bg-primary/50 border border-accent/20 rounded-md focus:outline-none focus:ring-2 focus:ring-accent text-white placeholder-gray-400"
                   placeholder="Your message here..."
                 ></textarea>
@@ -72,10 +128,27 @@ export default function Contact() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full py-3 px-4 bg-accent/10 text-accent border border-accent rounded-md hover:bg-accent/20 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary transition-colors duration-300"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-4 border border-accent rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary transition-colors duration-300 ${
+                  isSubmitting 
+                    ? 'bg-accent/5 text-accent/50 cursor-not-allowed' 
+                    : 'bg-accent/10 text-accent hover:bg-accent/20'
+                }`}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </motion.button>
+              
+              {submitStatus === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-md">
+                  <p className="text-green-400 text-center">Thank you! Your message has been sent successfully.</p>
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-md">
+                  <p className="text-red-400 text-center">Sorry, there was an error sending your message. Please try again.</p>
+                </div>
+              )}
             </form>
           </motion.div>
 
