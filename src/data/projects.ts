@@ -8,18 +8,27 @@ interface Project {
   liveUrl?: string;
   githubUrl: string;
   icon: string;
+  featured?: boolean;
+  completion?: string;
+  duration?: string;
+  challenges?: string[];
 }
 
 export const projects: Project[] = [
   {
     title: "E-commerce Platform",
     category: "Full Stack",
-    description: "A modern e-commerce platform with cart functionality and payment integration.",
+    description: "A modern e-commerce platform with cart functionality, payment integration, and admin dashboard. Built with focus on performance and user experience.",
     image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80",
-    tech: ["Next.js", "TypeScript", "Stripe", "Prisma"],
-    impact: ["500+ daily users", "98% uptime", "$10k+ in sales"],
+    tech: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
+    impact: ["500+ daily users", "98% uptime", "$10k+ in sales", "4.8/5 user rating"],
     githubUrl: "https://github.com/TabbyMichael/e-commerce",
-    icon: "shopping-cart"
+    liveUrl: "https://demo-ecommerce.netlify.app",
+    icon: "shopping-cart",
+    featured: true,
+    completion: "2024",
+    duration: "3 months",
+    challenges: ["Payment processing integration", "Real-time inventory management", "Mobile optimization"]
   },
   {
     title: "Weather Dashboard",

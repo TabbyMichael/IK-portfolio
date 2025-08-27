@@ -3,8 +3,15 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import ParticleBackground from './components/ParticleBackground';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import SEOHelmet from './components/SEO/SEOHelmet';
+import { initGA, usePageTracking } from './utils/analytics';
 import './loader.css';
 import PageLoader from './PageLoader';
+
+// Conditionally import GADebug only in development
+const GADebug = import.meta.env.DEV 
+  ? lazy(() => import('./components/common/GADebug'))
+  : null;
 
 const routes = [
   { path: '/', component: lazy(() => import('./pages/Home')) },
@@ -21,9 +28,12 @@ const AppRoutes: React.FC = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
 
+  // Initialize page tracking
+  usePageTracking();
+
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 2000); // 2 seconds
+    const timer = setTimeout(() => setLoading(false), 800); // Reduced from 2000ms to 800ms
     return () => clearTimeout(timer);
   }, [location]);
 
@@ -41,18 +51,31 @@ const AppRoutes: React.FC = () => {
   );
 };
 
-const App: React.FC = () => (
-  <ErrorBoundary>
-    <Router>
-      <div className="relative min-h-screen">
-        <ParticleBackground />
-        <Navbar />
-        <main className="relative z-10">
-          <AppRoutes />
-        </main>
-      </div>
-    </Router>
-  </ErrorBoundary>
-);
+const App: React.FC = () => {
+  // Initialize Google Analytics
+  useEffect(() => {
+    initGA();
+  }, []);
+
+  return (
+    <ErrorBoundary>
+      <Router>
+        <SEOHelmet />
+        <div className="relative min-h-screen">
+          <ParticleBackground />
+          <Navbar />
+          <main className="relative z-10">
+            <AppRoutes />
+          </main>
+          {import.meta.env.DEV && GADebug && (
+            <Suspense fallback={null}>
+              <GADebug />
+            </Suspense>
+          )}
+        </div>
+      </Router>
+    </ErrorBoundary>
+  );
+};
 
 export default App;
