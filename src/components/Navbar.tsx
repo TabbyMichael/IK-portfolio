@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import ThemeToggle from './common/ThemeToggle';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,8 +63,8 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:block">
-            <nav className="ml-10 flex items-baseline space-x-8" role="navigation" aria-label="Main navigation">
+          <div className="hidden md:flex items-center space-x-8">
+            <nav className="flex items-baseline space-x-8" role="navigation" aria-label="Main navigation">
               {navItems.map((item) => {
                 const isActive = location.pathname === item.path;
                 return (
@@ -82,10 +83,12 @@ export default function Navbar() {
                 );
               })}
             </nav>
+            <ThemeToggle />
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile Menu Button and Theme Toggle */}
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
             <button
               ref={buttonRef}
               onClick={() => setIsOpen(!isOpen)}

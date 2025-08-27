@@ -50,7 +50,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-24 bg-primary">
+    <div className="min-h-screen pt-24 pb-24">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
