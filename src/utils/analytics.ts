@@ -9,7 +9,9 @@ declare global {
 }
 
 // Google Analytics Configuration
-export const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID || 'G-XXXXXXXXXX';
+// Note: GA tracking IDs are meant to be public and visible in client-side code
+// This is not a security risk - all websites using GA expose their tracking ID
+export const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID || '';
 
 // Initialize Google Analytics
 export const initGA = () => {
@@ -17,7 +19,7 @@ export const initGA = () => {
   
   // Check if GA_TRACKING_ID is valid
   if (!GA_TRACKING_ID || GA_TRACKING_ID === 'G-XXXXXXXXXX') {
-    console.warn('Google Analytics: Invalid or missing tracking ID');
+    console.warn('Google Analytics: Invalid or missing tracking ID. Please set VITE_GA_TRACKING_ID environment variable.');
     return;
   }
 
