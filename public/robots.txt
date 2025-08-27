@@ -1,4 +1,24 @@
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://your-deployed-url-here/sitemap.xml
+
+# Security
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /src/
+
+# Performance
+User-agent: *
+Crawl-delay: 1
+
+# Block specific bots if needed (uncomment if required)
+# User-agent: BadBot
+# Disallow: /
+
+# Allow search engines to index images
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /public/assets/

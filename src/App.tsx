@@ -6,12 +6,18 @@ import ErrorBoundary from './components/common/ErrorBoundary';
 import SEOHelmet from './components/SEO/SEOHelmet';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { initGA, usePageTracking } from './utils/analytics';
+import { initSentry } from './utils/sentry';
+import { initPerformanceMonitoring } from './utils/performance';
 import './loader.css';
 import PageLoader from './PageLoader';
 
-// Conditionally import GADebug only in development
+// Conditionally import development components
 const GADebug = import.meta.env.DEV 
   ? lazy(() => import('./components/common/GADebug'))
+  : null;
+
+const PerformanceDashboard = import.meta.env.DEV
+  ? lazy(() => import('./components/common/PerformanceDashboard'))
   : null;
 
 const routes = [
@@ -53,9 +59,28 @@ const AppRoutes: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  // Initialize Google Analytics
+  // Initialize monitoring services
   useEffect(() => {
+    // Initialize Google Analytics
     initGA();
+    
+    // Initialize Sentry for error tracking (production only)
+    if (import.meta.env.PROD || import.meta.env.VITE_SENTRY_DSN) {
+      initSentry();
+    }
+    
+    // Initialize performance monitoring
+    if (import.meta.env.VITE_ENABLE_PERFORMANCE_MONITORING !== 'false') {
+      initPerformanceMonitoring();
+    }
+    
+    // Log initialization status
+    console.log('🚀 Portfolio app initialized with:', {
+      environment: import.meta.env.MODE,
+      analytics: !!import.meta.env.VITE_GA_TRACKING_ID,
+      sentry: !!import.meta.env.VITE_SENTRY_DSN,
+      performance: import.meta.env.VITE_ENABLE_PERFORMANCE_MONITORING !== 'false'
+    });
   }, []);
 
   return (
@@ -66,12 +91,17 @@ const App: React.FC = () => {
           <div className="relative min-h-screen">
             <ParticleBackground />
             <Navbar />
-            <main className="relative z-10">
+            <main className="relative z-10" id="main-content" role="main" aria-label="Main content">
               <AppRoutes />
             </main>
             {import.meta.env.DEV && GADebug && (
               <Suspense fallback={null}>
                 <GADebug />
+              </Suspense>
+            )}
+            {import.meta.env.DEV && PerformanceDashboard && (
+              <Suspense fallback={null}>
+                <PerformanceDashboard />
               </Suspense>
             )}
           </div>
