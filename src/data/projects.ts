@@ -104,7 +104,7 @@ export const projects: Project[] = [
     title: "Job Board",
     category: "Full Stack",
     description: "Job listing and application tracking platform.",
-    image: "https://images.unsplash.com/photo-1568598035058-40a5a9f0c366?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80",
     tech: ["Next.js", "Prisma", "PostgreSQL"],
     impact: ["1k+ job listings", "500+ applications"],
     githubUrl: "https://github.com/TabbyMichael/job-board",
