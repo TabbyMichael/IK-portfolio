@@ -1,11 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        primary: '#0A192F',
-        accent: '#64FFDA',
+        primary: {
+          DEFAULT: '#0A192F',
+          light: '#F8FAFC',
+        },
+        accent: {
+          DEFAULT: '#64FFDA',
+          light: '#3B82F6',
+        },
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],

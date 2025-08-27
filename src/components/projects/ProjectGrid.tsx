@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { allProjects } from '../../data';
 import ProjectCard from './ProjectCard';
 import Pagination from '../common/Pagination';

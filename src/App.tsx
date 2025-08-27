@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import ParticleBackground from './components/ParticleBackground';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import SEOHelmet from './components/SEO/SEOHelmet';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { initGA, usePageTracking } from './utils/analytics';
 import './loader.css';
 import PageLoader from './PageLoader';
@@ -59,21 +60,23 @@ const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <Router>
-        <SEOHelmet />
-        <div className="relative min-h-screen">
-          <ParticleBackground />
-          <Navbar />
-          <main className="relative z-10">
-            <AppRoutes />
-          </main>
-          {import.meta.env.DEV && GADebug && (
-            <Suspense fallback={null}>
-              <GADebug />
-            </Suspense>
-          )}
-        </div>
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <SEOHelmet />
+          <div className="relative min-h-screen">
+            <ParticleBackground />
+            <Navbar />
+            <main className="relative z-10">
+              <AppRoutes />
+            </main>
+            {import.meta.env.DEV && GADebug && (
+              <Suspense fallback={null}>
+                <GADebug />
+              </Suspense>
+            )}
+          </div>
+        </Router>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 };

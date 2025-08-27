@@ -7,6 +7,12 @@
 :root {
   --primary: #0A192F;
   --accent: #64FFDA;
+  --light-primary: #F8FAFC;
+  --light-accent: #3B82F6;
+}
+
+.light {
+  --accent: #3B82F6;
 }
 
 @layer base {
@@ -14,21 +20,93 @@
     scroll-behavior: smooth;
   }
 
+  /* Default (Dark Mode) - Original Theme */
   body {
     @apply bg-[#0A192F] text-white font-inter;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-poppins;
+    @apply font-poppins text-white;
+  }
+
+  /* Light Mode Overrides */
+  .light body {
+    @apply bg-[#F8FAFC] text-[#0F172A] !important;
+  }
+
+  .light h1, .light h2, .light h3, .light h4, .light h5, .light h6 {
+    @apply text-[#0F172A] !important;
   }
 }
 
+/* Default (Dark Mode) - Original Theme Colors */
 .glass {
   @apply bg-white/10 backdrop-blur-md border border-white/20;
 }
 
+.text-accent {
+  @apply text-[#64FFDA];
+}
+
+.border-accent {
+  @apply border-[#64FFDA];
+}
+
+.hover\:text-accent:hover {
+  @apply text-[#64FFDA];
+}
+
+.hover\:border-accent:hover {
+  @apply border-[#64FFDA];
+}
+
+.hover\:bg-accent\/10:hover {
+  @apply bg-[#64FFDA]/10;
+}
+
 .neon-glow {
-  text-shadow: 0 0 10px var(--accent),
-               0 0 20px var(--accent),
-               0 0 30px var(--accent);
+  text-shadow: 0 0 10px #64FFDA,
+               0 0 20px #64FFDA,
+               0 0 30px #64FFDA;
+}
+
+/* Light Mode Overrides */
+.light .glass {
+  @apply bg-black/10 border-black/20 !important;
+}
+
+.light .text-accent {
+  @apply text-blue-600 !important;
+}
+
+.light .border-accent {
+  @apply border-blue-600 !important;
+}
+
+.light .hover\:text-accent:hover {
+  @apply text-blue-600 !important;
+}
+
+.light .hover\:border-accent:hover {
+  @apply border-blue-600 !important;
+}
+
+.light .hover\:bg-accent\/10:hover {
+  @apply bg-blue-600/10 !important;
+}
+
+.light .text-gray-300 {
+  @apply text-[#475569] !important;
+}
+
+.light .text-gray-400 {
+  @apply text-[#64748B] !important;
+}
+
+.light .text-white {
+  @apply text-[#0F172A] !important;
+}
+
+.light .neon-glow {
+  text-shadow: none !important;
 }
