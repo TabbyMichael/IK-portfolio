@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const projects = [
   {
@@ -94,6 +95,23 @@ export default function FeaturedProjects() {
           </motion.div>
         ))}
       </div>
+
+      {/* View All Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        viewport={{ once: true }}
+        className="text-center mt-12"
+      >
+        <Link
+          to="/projects"
+          className="inline-flex items-center gap-2 px-8 py-4 glass rounded-full text-accent hover:bg-accent/10 transition-all duration-300 group font-medium"
+        >
+          View All Projects
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+        </Link>
+      </motion.div>
     </section>
   );
 }
