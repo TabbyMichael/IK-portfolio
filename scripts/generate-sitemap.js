@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const SITE_URL = 'https://your-deployed-url-here'; // Replace with actual domain
@@ -127,12 +132,10 @@ Allow: /public/assets/
   console.log(`✅ robots.txt updated at ${robotsPath}`);
 }
 
-// Main execution
-if (require.main === module) {
-  console.log('🚀 Generating SEO files...');
-  writeSitemap();
-  generateRobotsTxt();
-  console.log('✨ SEO files generation complete!');
-}
+// Main execution - simplified approach
+console.log('🚀 Generating SEO files...');
+writeSitemap();
+generateRobotsTxt();
+console.log('✨ SEO files generation complete!');
 
-module.exports = { generateSitemap, routes };
+export { generateSitemap, routes };

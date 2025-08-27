@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 
-const sharp = require('sharp');
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
+import sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
+import { fileURLToPath } from 'url';
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
@@ -228,18 +233,17 @@ const convertImages = async () => {
   }
 };
 
-// CLI usage
-if (require.main === module) {
+// CLI usage - simplified approach
+(async () => {
   // Check if Sharp is installed
   try {
-    require.resolve('sharp');
+    await import('sharp');
+    await convertImages();
   } catch (error) {
     console.error('❌ Sharp is not installed. Install it with:');
     console.error('   npm install sharp --save-dev');
     process.exit(1);
   }
-  
-  convertImages();
-}
+})();
 
-module.exports = { convertImages, convertImage, BREAKPOINTS, QUALITY_SETTINGS };
+export { convertImages, convertImage, BREAKPOINTS, QUALITY_SETTINGS };
