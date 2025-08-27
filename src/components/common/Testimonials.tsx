@@ -1,4 +1,6 @@
 import React from 'react';
+import { Sparkles, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { event } from '../../utils/analytics';
 
 interface Testimonial {
@@ -83,6 +85,18 @@ const Testimonials: React.FC = () => {
               <blockquote>
                 <p className="text-gray-800 leading-relaxed">"{testimonial.content}"</p>
               </blockquote>
+              
+              {/* Case Study Button */}
+              <div className="flex justify-center mt-6">
+                <Link
+                  to="/case"
+                  className="group inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-full text-blue-600 hover:from-blue-500/20 hover:to-purple-500/20 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 text-sm font-medium"
+                >
+                  <Sparkles className="w-3 h-3 group-hover:rotate-12 transition-transform duration-300" />
+                  <span>Case Study</span>
+                  <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
+              </div>
             </div>
           ))}
         </div>

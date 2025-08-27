@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight, Award, ExternalLink } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight, Award, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface Testimonial {
   id: number;
@@ -158,20 +159,18 @@ export default function FeaturedTestimonials() {
                 <span className="text-gray-500">{featuredTestimonials[currentIndex].location}</span>
                 <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
                 <span className="text-accent">{featuredTestimonials[currentIndex].projectType}</span>
-                {featuredTestimonials[currentIndex].projectUrl && (
-                  <>
-                    <span className="w-1 h-1 bg-gray-500 rounded-full"></span>
-                    <a
-                      href={featuredTestimonials[currentIndex].projectUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-accent hover:text-accent/80 transition-colors"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                      View Project
-                    </a>
-                  </>
-                )}
+              </div>
+              
+              {/* Case Study Button */}
+              <div className="flex justify-center md:justify-start mt-4">
+                <Link
+                  to="/case"
+                  className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-accent/20 to-purple-500/20 border border-accent/30 rounded-full text-accent hover:from-accent/30 hover:to-purple-500/30 hover:border-accent/50 transition-all duration-300 hover:scale-105 backdrop-blur-sm shadow-lg hover:shadow-accent/25"
+                >
+                  <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="font-semibold">Explore Success Story</span>
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
               </div>
             </div>
           </div>

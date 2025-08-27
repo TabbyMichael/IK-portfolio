@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Star, Calendar, ExternalLink, Filter, Award } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Calendar, Filter, Award, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface Testimonial {
   id: number;
@@ -332,19 +333,17 @@ const Testimonials: React.FC = () => {
                     )}
                   </div>
                   
-                  {filteredTestimonials[currentIndex]?.projectUrl && (
-                    <div className="mt-4">
-                      <a
-                        href={filteredTestimonials[currentIndex]?.projectUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-accent hover:text-accent/80 text-sm transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        View Project
-                      </a>
-                    </div>
-                  )}
+                  {/* Case Study Button */}
+                  <div className="flex justify-center mt-6">
+                    <Link
+                      to="/case"
+                      className="group inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-accent/10 to-blue-500/10 border border-accent/40 rounded-full text-accent hover:from-accent/20 hover:to-blue-500/20 hover:border-accent/60 transition-all duration-300 hover:scale-105 backdrop-blur-sm shadow-lg hover:shadow-accent/20"
+                    >
+                      <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                      <span className="font-semibold text-base">View Full Case Study</span>
+                      <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -425,19 +424,20 @@ const Testimonials: React.FC = () => {
                   "{testimonial.content}"
                 </p>
                 
-                <div className="flex justify-between items-center text-xs text-gray-500">
+                <div className="flex justify-between items-center text-xs text-gray-500 mb-4">
                   <span className="text-accent">{testimonial.projectType}</span>
-                  {testimonial.projectUrl && (
-                    <a
-                      href={testimonial.projectUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-accent hover:text-accent/80 transition-colors"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                      View
-                    </a>
-                  )}
+                </div>
+                
+                {/* Case Study Button */}
+                <div className="flex justify-center mt-4">
+                  <Link
+                    to="/case"
+                    className="group inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent/10 to-purple-500/10 border border-accent/30 rounded-full text-accent hover:from-accent/20 hover:to-purple-500/20 hover:border-accent/50 transition-all duration-300 hover:scale-105 backdrop-blur-sm text-sm"
+                  >
+                    <Sparkles className="w-3 h-3 group-hover:rotate-12 transition-transform duration-300" />
+                    <span className="font-medium">Deep Dive</span>
+                    <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" />
+                  </Link>
                 </div>
               </motion.div>
             ))}
