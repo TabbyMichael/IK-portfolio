@@ -1,12 +1,86 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Metric } from 'web-vitals';
 
+// Global type declarations
 declare global {
   interface Window {
-    gtag: (command: string, target?: string | Date, config?: Record<string, unknown>) => void;
+    gtag: (...args: unknown[]) => void;
     dataLayer: unknown[];
   }
+  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function gtag(...args: unknown[]): void;
 }
+
+// Simple analytics interface for web vitals
+export const reportWebVitals = (metric: Metric) => {
+  // In a real application, you would send this to your analytics service
+  // Examples: Google Analytics, Adobe Analytics, custom tracking service
+  
+  if (import.meta.env.DEV) {
+    console.log('📊 Web Vital:', {
+      name: metric.name,
+      value: metric.value,
+      id: metric.id,
+      delta: metric.delta,
+      timestamp: Date.now()
+    });
+  }
+  
+  // Example: Send to Google Analytics 4
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', metric.name, {
+      value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+      metric_id: metric.id,
+      metric_value: metric.value,
+      metric_delta: metric.delta,
+      custom_parameter_1: 'web_vitals'
+    });
+  }
+  
+  // Example: Send to custom analytics endpoint
+  // fetch('/api/analytics/web-vitals', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({
+  //     metric: metric.name,
+  //     value: metric.value,
+  //     id: metric.id,
+  //     url: window.location.href,
+  //     timestamp: Date.now()
+  //   })
+  // }).catch(console.warn);
+};
+
+// Custom event tracking
+export const trackEvent = (eventName: string, parameters: Record<string, unknown> = {}) => {
+  if (import.meta.env.DEV) {
+    console.log('🎯 Event tracked:', eventName, parameters);
+  }
+  
+  // Google Analytics 4 event tracking
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, parameters);
+  }
+};
+
+// Page view tracking
+export const trackPageView = (path: string, title?: string) => {
+  if (import.meta.env.DEV) {
+    console.log('👀 Page view:', path, title);
+  }
+  
+  // Google Analytics 4 page view
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('config', 'GA_MEASUREMENT_ID', {
+      page_path: path,
+      page_title: title
+    });
+  }
+};
+
+
 
 // Google Analytics Configuration
 // Note: GA tracking IDs are meant to be public and visible in client-side code
@@ -27,7 +101,7 @@ export const initGA = () => {
 
   // Initialize dataLayer first
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function(...args: [string, (string | Date)?, Record<string, unknown>?]) {
+  window.gtag = function(...args: unknown[]) {
     window.dataLayer.push(args);
   };
 
@@ -82,8 +156,8 @@ export const event = ({ action, category, label, value }: {
   }
 };
 
-// Performance monitoring
-export const reportWebVitals = (metric: {
+// Performance monitoring (keeping this for backward compatibility)
+export const reportWebVitalsLegacy = (metric: {
   name: string;
   id: string;
   value: number;
@@ -141,4 +215,18 @@ export const usePageTracking = () => {
   useEffect(() => {
     pageview(location.pathname + location.search);
   }, [location]);
+};
+
+export default {
+  reportWebVitals,
+  trackEvent,
+  trackPageView,
+  initGA,
+  pageview,
+  event,
+  trackInteraction,
+  trackFormSubmission,
+  trackProjectView,
+  trackDownload,
+  usePageTracking
 };
