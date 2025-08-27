@@ -3,7 +3,6 @@ import FeaturedSkills from '../components/home/FeaturedSkills';
 import FeaturedProjects from '../components/home/FeaturedProjects';
 import FeaturedTestimonials from '../components/home/FeaturedTestimonials';
 import Newsletter from '../components/home/Newsletter';
-import GithubActivity from '../components/home/GithubActivity';
 
 export default function Home() {
   return (
@@ -13,7 +12,6 @@ export default function Home() {
       <FeaturedProjects />
       <FeaturedTestimonials />
       <Newsletter />
-      <GithubActivity />
     </div>
   );
 }

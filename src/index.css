@@ -72,7 +72,7 @@
 
 /* Light Mode Overrides */
 .light .glass {
-  @apply bg-black/10 border-black/20 !important;
+  @apply bg-gray-50 border-gray-200 !important;
 }
 
 .light .text-accent {
@@ -107,6 +107,61 @@
   @apply text-[#0F172A] !important;
 }
 
+/* Keep case study headers white in light mode - must come after .text-white override */
+.light h2.case-study-header {
+  color: #ffffff !important;
+}
+
 .light .neon-glow {
   text-shadow: none !important;
+}
+
+/* Light Mode Form Controls - Higher Specificity */
+.light input[type="text"],
+.light input[type="email"],
+.light input[type="search"],
+.light textarea {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #111827 !important;
+}
+
+.light input[type="text"]::placeholder,
+.light input[type="email"]::placeholder,
+.light input[type="search"]::placeholder,
+.light textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+.light input[type="text"]:focus,
+.light input[type="email"]:focus,
+.light input[type="search"]:focus,
+.light textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+  outline: none !important;
+}
+
+/* Override any background utility classes in light mode */
+.light .bg-primary\/50,
+.light .bg-primary {
+  background-color: #ffffff !important;
+}
+
+/* Search bar specific styling */
+.light .search-icon {
+  color: #6b7280 !important;
+}
+
+/* Additional overrides for contact form inputs */
+.light form input,
+.light form textarea {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #111827 !important;
+}
+
+.light form input::placeholder,
+.light form textarea::placeholder {
+  color: #6b7280 !important;
 }
