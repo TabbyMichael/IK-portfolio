@@ -152,7 +152,7 @@ export default function CommunityFeatures() {
           ].map((stat, index) => {
             const IconComponent = stat.icon;
             return (
-              <div key={index} className="text-center p-4 bg-primary/30 rounded-xl">
+              <div key={index} className="text-center p-4 newsletter-bg newsletter-border rounded-xl">
                 <IconComponent className={`w-8 h-8 mx-auto mb-2 ${stat.color}`} />
                 <div className="text-2xl font-bold text-white">{stat.value}</div>
                 <div className="text-sm text-gray-400">{stat.label}</div>
@@ -188,8 +188,8 @@ export default function CommunityFeatures() {
                 hasVoted && selectedPollOption === index
                   ? 'border-accent bg-accent/10'
                   : hasVoted
-                  ? 'border-gray-700 bg-primary/30'
-                  : 'border-gray-700 bg-primary/30 hover:border-accent/50'
+                  ? 'border-gray-700 newsletter-bg newsletter-border'
+                  : 'border-gray-700 newsletter-bg newsletter-border hover:border-accent/50'
               }`}
             >
               {hasVoted && (
@@ -237,13 +237,23 @@ export default function CommunityFeatures() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 * index }}
-              className="flex items-start gap-4 p-4 bg-primary/30 rounded-xl hover:bg-primary/40 transition-colors"
+              className="flex items-start gap-4 p-4 newsletter-bg newsletter-border rounded-xl hover:bg-accent/10 transition-colors"
             >
-              <img
-                src={member.avatar}
-                alt={member.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
+              <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                <img
+                  src={member.avatar}
+                  alt={member.name}
+                  className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
+                  width="48"
+                  height="48"
+                  style={{
+                    imageRendering: 'auto',
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale'
+                  }}
+                />
+              </div>
               <div className="flex-1">
                 <div className="flex items-start justify-between">
                   <div>
@@ -288,7 +298,7 @@ export default function CommunityFeatures() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index }}
-              className="flex items-start justify-between p-4 bg-primary/30 rounded-xl hover:bg-primary/40 transition-colors cursor-pointer group"
+              className="flex items-start justify-between p-4 newsletter-bg newsletter-border rounded-xl hover:bg-accent/10 transition-colors cursor-pointer group"
             >
               <div className="flex-1">
                 <h4 className="font-medium text-white group-hover:text-accent transition-colors mb-1">

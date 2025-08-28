@@ -7,56 +7,56 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://your-deployed-url-here/</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/about</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/projects</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/contact</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/news</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/testimonials</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/case</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
   <url>
     <loc>https://your-deployed-url-here/blog</loc>
-    <lastmod>2025-08-27</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>

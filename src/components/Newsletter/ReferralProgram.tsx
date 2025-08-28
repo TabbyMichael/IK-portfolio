@@ -155,19 +155,19 @@ export default function ReferralProgram() {
       >
         <h3 className="text-xl font-bold text-white mb-4">Your Referral Stats</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-primary/30 rounded-xl">
+          <div className="text-center p-4 newsletter-bg newsletter-border rounded-xl">
             <div className="text-2xl font-bold text-accent">{mockStats.totalReferrals}</div>
             <div className="text-sm text-gray-400">Total Sent</div>
           </div>
-          <div className="text-center p-4 bg-primary/30 rounded-xl">
+          <div className="text-center p-4 newsletter-bg newsletter-border rounded-xl">
             <div className="text-2xl font-bold text-green-400">{mockStats.successfulReferrals}</div>
             <div className="text-sm text-gray-400">Successful</div>
           </div>
-          <div className="text-center p-4 bg-primary/30 rounded-xl">
+          <div className="text-center p-4 newsletter-bg newsletter-border rounded-xl">
             <div className="text-2xl font-bold text-yellow-400">{mockStats.pendingReferrals}</div>
             <div className="text-sm text-gray-400">Pending</div>
           </div>
-          <div className="text-center p-4 bg-primary/30 rounded-xl">
+          <div className="text-center p-4 newsletter-bg newsletter-border rounded-xl">
             <div className="text-2xl font-bold text-purple-400">{mockStats.totalRewardsEarned}</div>
             <div className="text-sm text-gray-400">Rewards Earned</div>
           </div>
@@ -189,7 +189,7 @@ export default function ReferralProgram() {
               type="text"
               value={referralLink}
               readOnly
-              className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-accent/20 rounded-xl text-white text-sm"
+              className="w-full pl-10 pr-4 py-3 newsletter-bg newsletter-border rounded-xl text-white text-sm"
             />
           </div>
           <motion.button
@@ -214,7 +214,7 @@ export default function ReferralProgram() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShareModalOpen(true)}
-            className="px-6 py-3 bg-primary border border-accent/20 text-accent rounded-xl font-medium hover:bg-accent/10 transition-colors flex items-center gap-2"
+            className="px-6 py-3 newsletter-bg newsletter-border text-accent rounded-xl font-medium hover:bg-accent/10 transition-colors flex items-center gap-2"
           >
             <Share2 className="w-4 h-4" />
             Share
@@ -245,7 +245,7 @@ export default function ReferralProgram() {
                 className={`p-4 rounded-xl border-2 transition-all duration-300 ${
                   isUnlocked
                     ? 'border-accent bg-accent/10'
-                    : 'border-gray-700 bg-primary/30'
+                    : 'border-gray-700 newsletter-bg newsletter-border'
                 }`}
               >
                 <div className="flex items-start gap-4">
@@ -332,7 +332,7 @@ export default function ReferralProgram() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex flex-col items-center gap-2 p-4 bg-primary/30 rounded-xl hover:bg-primary/40 transition-colors"
+                    className="flex flex-col items-center gap-2 p-4 newsletter-bg newsletter-border rounded-xl hover:bg-accent/10 transition-colors"
                   >
                     <IconComponent className={`w-6 h-6 ${platform.color}`} />
                     <span className="text-xs text-gray-400">{platform.name}</span>
