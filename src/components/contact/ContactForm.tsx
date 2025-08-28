@@ -11,10 +11,6 @@ interface FormData {
   honeypot?: string; // Anti-spam field
 }
 
-interface FormErrors {
-  [key: string]: string;
-}
-
 const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
@@ -28,9 +24,8 @@ const ContactForm: React.FC = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid, touchedFields },
+    formState: { errors, touchedFields },
     watch,
-    setError
   } = useForm<FormData>({
     mode: 'onBlur',
     reValidateMode: 'onChange'
@@ -55,42 +50,12 @@ const ContactForm: React.FC = () => {
     }
   }, [submitStatus]);
 
-  // Custom validation function
-  const validateForm = (data: FormData): FormErrors => {
-    const errors: FormErrors = {};
-    
-    // Additional custom validations
-    if (data.message && data.message.length < 10) {
-      errors.message = 'Message must be at least 10 characters long';
-    }
-    
-    if (data.name && data.name.length < 2) {
-      errors.name = 'Name must be at least 2 characters long';
-    }
-    
-    // Check for potential spam
-    if (data.honeypot) {
-      errors.honeypot = 'Potential spam detected';
-    }
-    
-    return errors;
-  };
-
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     setLiveRegionMessage('Submitting form...');
     
     try {
-      // Custom validation
-      const validationErrors = validateForm(data);
-      if (Object.keys(validationErrors).length > 0) {
-        Object.entries(validationErrors).forEach(([field, message]) => {
-          setError(field as keyof FormData, { type: 'manual', message });
-        });
-        throw new Error('Validation failed');
-      }
-
       // Anti-spam check
       if (data.honeypot) {
         console.warn('Spam attempt detected');
@@ -169,6 +134,8 @@ const ContactForm: React.FC = () => {
         onSubmit={handleSubmit(onSubmit)} 
         className="space-y-6"
         noValidate
+        role="form"
+        aria-label="Contact form"
         aria-describedby="form-description"
       >
         {/* Form description for screen readers */}
@@ -200,7 +167,7 @@ const ContactForm: React.FC = () => {
             id="name"
             autoComplete="name"
             {...register('name', { 
-              required: 'Full name is required',
+              required: 'Name is required',
               minLength: {
                 value: 2,
                 message: 'Name must be at least 2 characters'
@@ -244,7 +211,7 @@ const ContactForm: React.FC = () => {
             id="email"
             autoComplete="email"
             {...register('email', {
-              required: 'Email address is required',
+              required: 'Email is required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'Please enter a valid email address'
@@ -367,9 +334,9 @@ const ContactForm: React.FC = () => {
         <div>
           <button
             type="submit"
-            disabled={isSubmitting || !isValid}
+            disabled={isSubmitting}
             className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-              isSubmitting || !isValid
+              isSubmitting
                 ? 'bg-gray-400 cursor-not-allowed' 
                 : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 active:bg-blue-800'
             }`}
@@ -388,13 +355,7 @@ const ContactForm: React.FC = () => {
             )}
           </button>
           <div id="submit-help" className="mt-2 text-xs text-gray-500 text-center">
-            {!isValid && Object.keys(errors).length > 0 ? (
-              <span className="text-red-600">
-                Please fix the errors above before submitting
-              </span>
-            ) : (
-              "I'll respond within 24 hours"
-            )}
+            I'll respond within 24 hours
           </div>
         </div>
       </form>
