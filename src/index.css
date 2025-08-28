@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import './styles/image-optimization.css';
 
 @tailwind base;
 @tailwind components;
@@ -164,4 +165,18 @@
 .light form input::placeholder,
 .light form textarea::placeholder {
   color: #6b7280 !important;
+}
+
+/* Newsletter component background overrides for light mode */
+.light .bg-primary\/30 {
+  background-color: #f9fafb !important; /* Lightest shade of grey */
+}
+
+/* Newsletter specific background patterns */
+.light .newsletter-bg {
+  background-color: #f9fafb !important;
+}
+
+.light .newsletter-border {
+  border-color: #e5e7eb !important;
 }

@@ -270,7 +270,7 @@ export default function EnhancedNewsletterForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full pl-12 pr-4 py-4 bg-primary/50 border border-accent/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-white placeholder-gray-400 transition-all duration-300"
+                    className="w-full pl-12 pr-4 py-4 newsletter-bg newsletter-border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-white placeholder-gray-400 transition-all duration-300"
                     disabled={status === 'loading'}
                   />
                 </div>
@@ -364,7 +364,7 @@ export default function EnhancedNewsletterForm() {
                         className={`p-3 rounded-xl border-2 transition-all duration-300 ${
                           preferences.frequency === option.value
                             ? 'border-accent bg-accent/10 text-white'
-                            : 'border-gray-700 bg-primary/30 text-gray-300 hover:border-accent/50'
+                            : 'border-gray-700 newsletter-bg newsletter-border text-gray-300 hover:border-accent/50'
                         }`}
                       >
                         <div className="font-medium">{option.label}</div>
@@ -393,7 +393,7 @@ export default function EnhancedNewsletterForm() {
                           className={`p-4 rounded-xl border-2 transition-all duration-300 text-left relative ${
                             isSelected
                               ? 'border-accent bg-accent/10 text-white'
-                              : 'border-gray-700 bg-primary/30 text-gray-300 hover:border-accent/50'
+                              : 'border-gray-700 newsletter-bg newsletter-border text-gray-300 hover:border-accent/50'
                           }`}
                         >
                           {interest.popular && (
@@ -428,7 +428,7 @@ export default function EnhancedNewsletterForm() {
                       { key: 'replies', label: 'Comment replies', description: 'When someone replies to your comments' },
                       { key: 'mentions', label: 'Mentions', description: 'When someone mentions you in discussions' }
                     ].map((notification) => (
-                      <div key={notification.key} className="flex items-center justify-between p-3 bg-primary/30 rounded-xl">
+                      <div key={notification.key} className="flex items-center justify-between p-3 newsletter-bg newsletter-border rounded-xl">
                         <div>
                           <div className="font-medium text-white">{notification.label}</div>
                           <div className="text-sm text-gray-400">{notification.description}</div>
@@ -517,7 +517,7 @@ export default function EnhancedNewsletterForm() {
                     value={verificationCode}
                     onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                     placeholder="Enter 6-digit code"
-                    className="w-full text-center text-2xl py-4 bg-primary/50 border border-accent/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-white placeholder-gray-400 transition-all duration-300 tracking-widest"
+                    className="w-full text-center text-2xl py-4 newsletter-bg newsletter-border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-white placeholder-gray-400 transition-all duration-300 tracking-widest"
                     disabled={status === 'loading'}
                   />
                 </div>
@@ -592,12 +592,12 @@ export default function EnhancedNewsletterForm() {
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                <div className="bg-primary/30 p-3 rounded-xl">
+                <div className="newsletter-bg newsletter-border p-3 rounded-xl">
                   <Calendar className="w-5 h-5 text-accent mx-auto mb-2" />
                   <div className="text-white font-medium">Next Issue</div>
                   <div className="text-gray-400">Monday, Jan 29</div>
                 </div>
-                <div className="bg-primary/30 p-3 rounded-xl">
+                <div className="newsletter-bg newsletter-border p-3 rounded-xl">
                   <Heart className="w-5 h-5 text-red-400 mx-auto mb-2" />
                   <div className="text-white font-medium">Your Interests</div>
                   <div className="text-gray-400">{preferences.categories.length} selected</div>
@@ -608,7 +608,7 @@ export default function EnhancedNewsletterForm() {
                 <button className="w-full py-3 bg-accent text-primary rounded-xl font-semibold hover:bg-accent/90 transition-colors">
                   Browse Newsletter Archive
                 </button>
-                <button className="w-full py-3 bg-primary/30 text-accent rounded-xl font-medium hover:bg-primary/40 transition-colors">
+                <button className="w-full py-3 newsletter-bg newsletter-border text-accent rounded-xl font-medium hover:bg-accent/10 transition-colors">
                   Share with Friends
                 </button>
               </div>

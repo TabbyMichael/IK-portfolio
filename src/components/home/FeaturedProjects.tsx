@@ -9,15 +9,15 @@ const projects = [
     image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80',
     tech: ['React', 'Node.js', 'PostgreSQL'],
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/TabbyMichael/kuza ',
   },
   {
     title: 'Pharmacy Website',
     description: 'E-commerce platform for a local pharmacy with inventory management.',
     image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=800&q=80',
     tech: ['Next.js', 'Tailwind CSS', 'Supabase'],
-    liveUrl: '#',
-    githubUrl: '#',
+    liveUrl: 'https://afya-bora.netlify.app',
+    githubUrl: 'https://github.com/TabbyMichael/Afya-Bora',
   },
   {
     title: 'DatingApp',
@@ -25,7 +25,7 @@ const projects = [
     image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
     tech: ['React Native', 'Firebase', 'TypeScript'],
     liveUrl: '#',
-    githubUrl: '#',
+    githubUrl: 'https://github.com/TabbyMichael/Soul-Mate',
   },
 ];
 

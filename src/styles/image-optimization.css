@@ -1,0 +1,174 @@
+/* Image Optimization Styles */
+/* Ensures high-quality image rendering and prevents pixel loss */
+
+/* Global image optimization */
+img {
+  /* Prevent browser from smoothing images on resize */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Fallback for better quality */
+  image-rendering: auto;
+  
+  /* Anti-aliasing for better edge smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Prevent blurry images on transform */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  /* GPU acceleration for better performance */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* High-DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    /* Better rendering for retina displays */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+  }
+}
+
+/* Testimonial image specific optimizations */
+.testimonial-image {
+  /* Ensure square aspect ratio is maintained */
+  aspect-ratio: 1;
+  
+  /* Better object positioning */
+  object-position: center top;
+  
+  /* Smooth transitions */
+  transition: transform 0.3s ease, filter 0.3s ease;
+  
+  /* Prevent layout shift */
+  will-change: transform;
+}
+
+.testimonial-image:hover {
+  /* Subtle enhancement on hover */
+  filter: brightness(1.05) contrast(1.05);
+}
+
+/* High quality image container */
+.image-container {
+  /* Create stacking context for better rendering */
+  position: relative;
+  z-index: 1;
+  
+  /* Prevent overflow issues */
+  overflow: hidden;
+  
+  /* Ensure crisp edges */
+  shape-rendering: crispEdges;
+}
+
+/* Loading state for images */
+.image-loading {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive image sizes for better quality */
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Small testimonial images (w-12 h-12) */
+.testimonial-sm .responsive-image {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+/* Medium testimonial images (w-16 h-16) */
+.testimonial-md .responsive-image {
+  min-width: 64px;
+  min-height: 64px;
+}
+
+/* Large testimonial images (w-20 h-20) */
+.testimonial-lg .responsive-image {
+  min-width: 80px;
+  min-height: 80px;
+}
+
+/* Extra large testimonial images (w-24 h-24) */
+.testimonial-xl .responsive-image {
+  min-width: 96px;
+  min-height: 96px;
+}
+
+/* Prevent image dragging */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Re-enable pointer events for interactive images */
+.interactive-image {
+  pointer-events: auto;
+}
+
+/* Print optimization */
+@media print {
+  img {
+    /* Ensure good quality in print */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .testimonial-image {
+    /* Slight brightness adjustment for dark theme */
+    filter: brightness(0.95);
+  }
+  
+  .testimonial-image:hover {
+    filter: brightness(1.05) contrast(1.1);
+  }
+}
+
+/* Motion preference respect */
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-image {
+    transition: none;
+  }
+  
+  .image-loading {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.testimonial-image:focus-visible {
+  outline: 2px solid var(--accent-color, #10b981);
+  outline-offset: 2px;
+  border-radius: inherit;
+}

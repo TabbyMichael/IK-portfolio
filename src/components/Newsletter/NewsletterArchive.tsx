@@ -150,7 +150,7 @@ export default function NewsletterArchive() {
               placeholder="Search articles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-primary/50 border border-accent/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-white placeholder-gray-400"
+              className="w-full pl-10 pr-4 py-3 newsletter-bg newsletter-border rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-white placeholder-gray-400"
             />
           </div>
 
@@ -159,7 +159,7 @@ export default function NewsletterArchive() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="appearance-none bg-primary/50 border border-accent/20 rounded-xl px-4 py-3 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+              className="appearance-none newsletter-bg newsletter-border rounded-xl px-4 py-3 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
             >
               {categories.map(category => (
                 <option key={category} value={category}>{category}</option>
@@ -173,7 +173,7 @@ export default function NewsletterArchive() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as 'date' | 'views' | 'rating')}
-              className="appearance-none bg-primary/50 border border-accent/20 rounded-xl px-4 py-3 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+              className="appearance-none newsletter-bg newsletter-border rounded-xl px-4 py-3 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
             >
               <option value="date">Latest</option>
               <option value="views">Most Viewed</option>

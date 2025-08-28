@@ -93,7 +93,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Complete digital transformation of a traditional medical center with patient management and telemedicine capabilities.',
     image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80',
-    clientImage: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80',
+    clientImage: '/assets/images/Dr. Sarah Kimani.jpg',
     testimonial: 'Ian transformed our patient management system completely. The new web application reduced appointment booking time by 70% and improved our operational efficiency dramatically.',
     rating: 5,
     results: {
@@ -119,7 +119,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Robust e-commerce platform that handles inventory, payments, and customer management seamlessly.',
     image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80',
-    clientImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+    clientImage: '/assets/images/Michael Ochieng.jpg',
     testimonial: 'Working with Ian on our e-commerce platform was a game-changer. Our online sales increased by 300% in the first quarter after launch.',
     rating: 5,
     results: {
@@ -145,7 +145,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Complete restaurant management system with order tracking, inventory management, and automated reporting.',
     image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80',
-    clientImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+    clientImage: '/assets/images/James Mwangi.jpg',
     testimonial: 'The POS system Ian built for us has streamlined our entire restaurant operation. Order management, inventory tracking, and sales reporting are now automated.',
     rating: 5,
     results: {
@@ -171,7 +171,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Comprehensive analytics dashboard with real-time data visualization and automated reporting.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-    clientImage: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80',
+    clientImage: '/assets/images/Grace Wanjiku.jpg',
     testimonial: 'Ian developed a comprehensive dashboard for our business analytics. The real-time data visualization and reporting features have revolutionized how we make decisions.',
     rating: 5,
     results: {
@@ -197,7 +197,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Scalable fintech application with secure payment processing, user management, and real-time transactions.',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80',
-    clientImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80',
+    clientImage: '/assets/images/Robert Kamau.jpg',
     testimonial: "Ian's expertise in React and Node.js helped us build a scalable fintech application. His code quality is exceptional, and he delivered on time despite tight deadlines.",
     rating: 5,
     results: {
@@ -863,11 +863,21 @@ const CaseStudies: React.FC = () => {
                       
                       {/* Client Info */}
                       <div className="flex items-center gap-4">
-                        <img
-                          src={successStories[currentStoryIndex].clientImage}
-                          alt={successStories[currentStoryIndex].clientName}
-                          className="w-12 h-12 rounded-full object-cover border-2 border-accent/30"
-                        />
+                        <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-accent/30 flex-shrink-0">
+                          <img
+                            src={successStories[currentStoryIndex].clientImage}
+                            alt={successStories[currentStoryIndex].clientName}
+                            className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+                            loading="lazy"
+                            width="56"
+                            height="56"
+                            style={{
+                              imageRendering: 'auto',
+                              WebkitFontSmoothing: 'antialiased',
+                              MozOsxFontSmoothing: 'grayscale'
+                            }}
+                          />
+                        </div>
                         <div>
                           <div className="font-semibold text-white">
                             {successStories[currentStoryIndex].clientName}
