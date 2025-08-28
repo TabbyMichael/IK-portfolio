@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-with-optimization.js",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
@@ -14,7 +14,7 @@
     "test:ci": "jest --ci --coverage --watchAll=false",
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "convert:images": "node scripts/convert-images.js",
-    "prebuild": "npm run convert:images && npm run generate:sitemap",
+    "prebuild": "npm run generate:sitemap",
     "analyze": "npm run build && npx vite-bundle-analyzer dist",
     "lighthouse": "npx lighthouse http://localhost:4173 --view"
   },
