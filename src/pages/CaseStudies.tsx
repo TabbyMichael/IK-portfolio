@@ -93,7 +93,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Complete digital transformation of a traditional medical center with patient management and telemedicine capabilities.',
     image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80',
-    clientImage: '/assets/images/Dr. Sarah Kimani.jpg',
+    clientImage: '/assets/webp/images/Dr. Sarah Kimani.webp',
     testimonial: 'Ian transformed our patient management system completely. The new web application reduced appointment booking time by 70% and improved our operational efficiency dramatically.',
     rating: 5,
     results: {
@@ -119,7 +119,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Robust e-commerce platform that handles inventory, payments, and customer management seamlessly.',
     image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80',
-    clientImage: '/assets/images/Michael Ochieng.jpg',
+    clientImage: '/assets/webp/images/Michael Ochieng.webp',
     testimonial: 'Working with Ian on our e-commerce platform was a game-changer. Our online sales increased by 300% in the first quarter after launch.',
     rating: 5,
     results: {
@@ -145,7 +145,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Complete restaurant management system with order tracking, inventory management, and automated reporting.',
     image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80',
-    clientImage: '/assets/images/James Mwangi.jpg',
+    clientImage: '/assets/webp/images/James Mwangi.webp',
     testimonial: 'The POS system Ian built for us has streamlined our entire restaurant operation. Order management, inventory tracking, and sales reporting are now automated.',
     rating: 5,
     results: {
@@ -171,7 +171,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Comprehensive analytics dashboard with real-time data visualization and automated reporting.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-    clientImage: '/assets/images/Grace Wanjiku.jpg',
+    clientImage: '/assets/webp/images/Grace Wanjiku.webp',
     testimonial: 'Ian developed a comprehensive dashboard for our business analytics. The real-time data visualization and reporting features have revolutionized how we make decisions.',
     rating: 5,
     results: {
@@ -197,7 +197,7 @@ const successStories: SuccessStory[] = [
     teamSize: 1,
     overview: 'Scalable fintech application with secure payment processing, user management, and real-time transactions.',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80',
-    clientImage: '/assets/images/Robert Kamau.jpg',
+    clientImage: '/assets/webp/images/Robert Kamau.webp',
     testimonial: "Ian's expertise in React and Node.js helped us build a scalable fintech application. His code quality is exceptional, and he delivered on time despite tight deadlines.",
     rating: 5,
     results: {

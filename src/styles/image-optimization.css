@@ -22,6 +22,10 @@ img {
   /* GPU acceleration for better performance */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  
+  /* Ensure proper sizing */
+  max-width: 100%;
+  height: auto;
 }
 
 /* High-DPI display optimization */
