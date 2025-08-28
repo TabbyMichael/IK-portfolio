@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "types": ["jest", "@testing-library/jest-dom", "node", "vite/client"],
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": false,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/__tests__/**/*",
+    "src/setupTests.ts",
+    "src/jest.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
+}

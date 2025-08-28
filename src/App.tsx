@@ -20,16 +20,91 @@ const PerformanceDashboard = import.meta.env.DEV
   ? lazy(() => import('./components/common/PerformanceDashboard'))
   : null;
 
+// Lazy-loaded route components with better error handling
 const routes = [
-  { path: '/', component: lazy(() => import('./pages/Home')) },
-  { path: '/about', component: lazy(() => import('./pages/About')) },
-  { path: '/projects', component: lazy(() => import('./pages/Projects')) },
-  { path: '/contact', component: lazy(() => import('./pages/Contact')) },
-  { path: '/blog', component: lazy(() => import('./pages/Blog')) },
-  { path: '/case', component: lazy(() => import('./pages/CaseStudies')) },
-  { path: '/news', component: lazy(() => import('./pages/Newsletter')) },
-  { path: '/testimonials', component: lazy(() => import('./pages/Testimonials')) },
+  { 
+    path: '/', 
+    component: lazy(() => import('./pages/Home').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Home" /> };
+    })),
+    name: 'Home'
+  },
+  { 
+    path: '/about', 
+    component: lazy(() => import('./pages/About').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="About" /> };
+    })),
+    name: 'About'
+  },
+  { 
+    path: '/projects', 
+    component: lazy(() => import('./pages/Projects').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Projects" /> };
+    })),
+    name: 'Projects'
+  },
+  { 
+    path: '/contact', 
+    component: lazy(() => import('./pages/Contact').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Contact" /> };
+    })),
+    name: 'Contact'
+  },
+  { 
+    path: '/blog', 
+    component: lazy(() => import('./pages/Blog').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Blog" /> };
+    })),
+    name: 'Blog'
+  },
+  { 
+    path: '/case', 
+    component: lazy(() => import('./pages/CaseStudies').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Case Studies" /> };
+    })),
+    name: 'Case Studies'
+  },
+  { 
+    path: '/news', 
+    component: lazy(() => import('./pages/Newsletter').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Newsletter" /> };
+    })),
+    name: 'Newsletter'
+  },
+  { 
+    path: '/testimonials', 
+    component: lazy(() => import('./pages/Testimonials').catch(() => {
+      return { default: () => <RouteErrorFallback routeName="Testimonials" /> };
+    })),
+    name: 'Testimonials'
+  },
 ] as const;
+
+// Route-specific error fallback component
+const RouteErrorFallback: React.FC<{ routeName: string }> = ({ routeName }) => {
+  const handleRetry = () => {
+    window.location.reload();
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="max-w-md w-full text-center">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-red-800 mb-2">Error Loading {routeName}</h2>
+          <p className="text-red-600 mb-4">
+            Failed to load {routeName} page. Please refresh the page or try again later.
+          </p>
+          <button
+            onClick={handleRetry}
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const AppRoutes: React.FC = () => {
   const location = useLocation();
