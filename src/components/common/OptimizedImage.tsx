@@ -16,26 +16,6 @@ interface OptimizedImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 
   onError?: (error: string) => void;
 }
 
-// Generate responsive image URLs (you would implement this based on your image optimization service)
-const generateResponsiveUrls = (src: string, quality: number = 85) => {
-  // This is a mock implementation - replace with your actual image optimization service
-  // Examples: Cloudinary, ImageKit, or your own image processing pipeline
-  const baseSrc = src.replace(/\.[^.]+$/, ''); // Remove extension
-  
-  return {
-    webp: {
-      '1x': `${baseSrc}.webp?q=${quality}&w=400`,
-      '2x': `${baseSrc}.webp?q=${quality}&w=800`,
-      '3x': `${baseSrc}.webp?q=${quality}&w=1200`
-    },
-    fallback: {
-      '1x': `${src}?q=${quality}&w=400`,
-      '2x': `${src}?q=${quality}&w=800`,
-      '3x': `${src}?q=${quality}&w=1200`
-    }
-  };
-};
-
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
@@ -44,7 +24,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   className = '',
   lazy = true,
   showPlaceholder = true,
-  quality = 85,
+  quality = 85, // eslint-disable-line @typescript-eslint/no-unused-vars
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   priority = false,
   onLoad,
@@ -102,13 +82,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     onError?.(errorMessage);
   };
 
-  // Generate responsive URLs
-  const urls = generateResponsiveUrls(src, quality);
-
-  // Generate srcSet for WebP and fallback
-  const webpSrcSet = `${urls.webp['1x']} 1x, ${urls.webp['2x']} 2x, ${urls.webp['3x']} 3x`;
-  const fallbackSrcSet = `${urls.fallback['1x']} 1x, ${urls.fallback['2x']} 2x, ${urls.fallback['3x']} 3x`;
-
   // Placeholder dimensions
   const placeholderAspectRatio = width && height ? (height / width) * 100 : 56.25; // Default to 16:9
 
@@ -139,35 +112,24 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         </div>
       )}
 
-      {/* Actual image with WebP support */}
+      {/* Actual image - simplified for static assets */}
       {isInView && (
-        <picture className="absolute inset-0">
-          {/* WebP sources for modern browsers */}
-          <source
-            type="image/webp"
-            srcSet={webpSrcSet}
-            sizes={sizes}
-          />
-          
-          {/* Fallback for browsers that don't support WebP */}
-          <img
-            ref={imgRef}
-            src={urls.fallback['1x']}
-            srcSet={fallbackSrcSet}
-            alt={alt}
-            width={width}
-            height={height}
-            sizes={sizes}
-            loading={lazy && !priority ? 'lazy' : 'eager'}
-            decoding="async"
-            onLoad={handleLoad}
-            onError={handleError}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-              isLoading ? 'opacity-0' : 'opacity-100'
-            }`}
-            {...props}
-          />
-        </picture>
+        <img
+          ref={imgRef}
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes={sizes}
+          loading={lazy && !priority ? 'lazy' : 'eager'}
+          decoding="async"
+          onLoad={handleLoad}
+          onError={handleError}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
+          {...props}
+        />
       )}
 
       {/* Overlay for additional styling */}
@@ -179,21 +141,12 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 };
 
 // Utility function to preload critical images
-export const preloadImage = (src: string, quality: number = 85): Promise<void> => {
+export const preloadImage = (src: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    const urls = generateResponsiveUrls(src, quality);
-    
-    // Preload WebP version
-    const webpImg = new Image();
-    webpImg.onload = () => resolve();
-    webpImg.onerror = () => {
-      // Fallback to original format
-      const fallbackImg = new Image();
-      fallbackImg.onload = () => resolve();
-      fallbackImg.onerror = reject;
-      fallbackImg.src = urls.fallback['1x'];
-    };
-    webpImg.src = urls.webp['1x'];
+    const img = new Image();
+    img.onload = () => resolve();
+    img.onerror = reject;
+    img.src = src;
   });
 };
 
@@ -206,7 +159,7 @@ export const useImagePreloader = (sources: string[], quality: number = 85) => {
   useEffect(() => {
     const preloadPromises = sources.map(async (src) => {
       try {
-        await preloadImage(src, quality);
+        await preloadImage(src);
         setLoadingStates(prev => ({ ...prev, [src]: false }));
       } catch (error) {
         console.warn(`Failed to preload image: ${src}`, error);

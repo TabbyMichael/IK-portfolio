@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Star, Calendar, Filter, Award, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import OptimizedImage from '../components/common/OptimizedImage';
 
 interface Testimonial {
   id: number;
@@ -26,7 +27,7 @@ const testimonials: Testimonial[] = [
     role: 'Director of Digital Health',
     company: 'Nairobi Medical Center',
     content: 'Ian transformed our patient management system completely. The new web application reduced appointment booking time by 70% and improved our operational efficiency dramatically. His attention to detail and understanding of healthcare workflows was exceptional.',
-    image: '/assets/webp/Dr. Sarah Kimani.webp',   
+    image: '/assets/webp/dr-sarah-kimani.webp',   
     rating: 5,
     date: '2024-01-15',
     projectType: 'Healthcare Web App',
@@ -41,7 +42,7 @@ const testimonials: Testimonial[] = [
     role: 'CEO & Founder',
     company: 'EcoTech Solutions',
     content: 'Working with Ian on our e-commerce platform was a game-changer. He delivered a robust system that handles our inventory, payments, and customer management seamlessly. Our online sales increased by 300% in the first quarter after launch.',
-    image: '/assets/webp/Michael Ochieng.webp',
+    image: '/assets/webp/michael-ochieng.webp',
     rating: 5,
     date: '2023-11-20',
     projectType: 'E-commerce Platform',
@@ -56,7 +57,7 @@ const testimonials: Testimonial[] = [
     role: 'Head of Operations',
     company: 'Safaricom Business Solutions',
     content: 'Ian developed a comprehensive dashboard for our business analytics. The real-time data visualization and reporting features have revolutionized how we make decisions. Exceptional technical skills combined with great communication.',
-    image: '/assets/webp/Grace Wanjiku.webp',
+    image: '/assets/webp/grace-wanjiku.webp',
     rating: 5,
     date: '2024-02-10',
     projectType: 'Analytics Dashboard',
@@ -69,7 +70,7 @@ const testimonials: Testimonial[] = [
     role: 'Restaurant Owner',
     company: "Mama Njeri's Kitchen",
     content: "The POS system Ian built for us has streamlined our entire restaurant operation. Order management, inventory tracking, and sales reporting are now automated. He understood our needs perfectly and delivered beyond expectations.",
-    image: '/assets/webp/James Mwangi.webp',
+    image: '/assets/webp/james-mwangi.webp',
     rating: 5,
     date: '2023-10-05',
     projectType: 'POS System',
@@ -83,7 +84,7 @@ const testimonials: Testimonial[] = [
     role: 'Pharmacy Director',
     company: 'Goodlife Pharmacy',
     content: 'Ian created a modern pharmacy management system that handles prescriptions, inventory, and customer data efficiently. The system has improved our service delivery and reduced medication errors significantly.',
-    image: '/assets/webp/Dr. Peter Kinyanjui.webp',
+    image: '/assets/webp/dr-peter-kinyanjui.webp',
     rating: 4,
     date: '2023-12-18',
     projectType: 'Pharmacy Management',
@@ -97,7 +98,7 @@ const testimonials: Testimonial[] = [
     role: 'IT Manager',
     company: 'Kenya Commercial Bank',
     content: 'The internal dashboard Ian developed for our branch operations has enhanced our efficiency tremendously. Real-time monitoring, automated reports, and intuitive design made it an instant success across all branches.',
-    image: '/assets/webp/Catherine Njeri.webp',
+    image: '/assets/webp/catherine-njeri.webp',
     rating: 5,
     date: '2024-01-30',
     projectType: 'Internal Dashboard',
@@ -110,7 +111,7 @@ const testimonials: Testimonial[] = [
     role: 'Tech Lead',
     company: 'Fintech Innovations Ltd',
     content: "Ian's expertise in React and Node.js helped us build a scalable fintech application. His code quality is exceptional, and he delivered the project on time despite tight deadlines. Highly recommend for complex projects.",
-    image: '/assets/webp/Robert Kamau.webp',
+    image: '/assets/webp/robert-kamau.webp',
     rating: 5,
     date: '2023-09-12',
     projectType: 'Fintech Application',
@@ -124,7 +125,7 @@ const testimonials: Testimonial[] = [
     role: 'Digital Marketing Manager',
     company: 'Tuko Digital Agency',
     content: 'The portfolio websites Ian created for our clients are stunning and performant. His eye for design and technical implementation skills resulted in websites that not only look great but convert visitors to customers.',
-    image: '/assets/webp/Mary Akinyi.webp',
+    image: '/assets/webp/mary-akinyi.webp',
     rating: 4,
     date: '2023-08-20',
     projectType: 'Portfolio Websites',
@@ -298,18 +299,14 @@ const Testimonials: React.FC = () => {
                   
                   <div className="flex items-center justify-center gap-4">
                     <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-accent/20 flex-shrink-0">
-                      <img
+                      <OptimizedImage
                         src={filteredTestimonials[currentIndex]?.image}
                         alt={filteredTestimonials[currentIndex]?.name}
+                        width={80}
+                        height={80}
                         className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                        loading="lazy"
-                        width="80"
-                        height="80"
-                        style={{
-                          imageRendering: 'auto',
-                          WebkitFontSmoothing: 'antialiased',
-                          MozOsxFontSmoothing: 'grayscale'
-                        }}
+                        priority={true}
+                        quality={90}
                       />
                     </div>
                     <div className="text-left">
@@ -414,18 +411,14 @@ const Testimonials: React.FC = () => {
                 
                 <div className="flex items-center mb-4">
                   <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-accent/20 flex-shrink-0">
-                    <img
+                    <OptimizedImage
                       src={testimonial.image}
                       alt={testimonial.name}
+                      width={56}
+                      height={56}
                       className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                      loading="lazy"
-                      width="56"
-                      height="56"
-                      style={{
-                        imageRendering: 'auto',
-                        WebkitFontSmoothing: 'antialiased',
-                        MozOsxFontSmoothing: 'grayscale'
-                      }}
+                      priority={false}
+                      quality={85}
                     />
                   </div>
                   <div className="ml-4 flex-1">
