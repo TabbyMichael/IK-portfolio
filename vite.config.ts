@@ -7,4 +7,8 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  build: {
+    assetsInlineLimit: 0, // Don't inline any assets
+  },
+  publicDir: 'public', // Explicitly set public directory
 });

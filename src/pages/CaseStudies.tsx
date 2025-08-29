@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Clock, Users, TrendingUp, CheckCircle, ArrowRight, Copy, Award, Target, Lightbulb, Zap, Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { event } from '../utils/analytics';
-import OptimizedImage from '../components/common/OptimizedImage';
 
 interface CodeExample {
   title: string;
@@ -865,14 +864,22 @@ const CaseStudies: React.FC = () => {
                       {/* Client Info */}
                       <div className="flex items-center gap-4">
                         <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-accent/30 flex-shrink-0">
-                          <OptimizedImage
+                          <img
                             src={successStories[currentStoryIndex].clientImage}
                             alt={successStories[currentStoryIndex].clientName}
-                            width={56}
-                            height={56}
                             className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                            priority={true}
-                            quality={90}
+                            loading="eager"
+                            width="56"
+                            height="56"
+                            onError={(e) => {
+                              console.error('Failed to load image:', successStories[currentStoryIndex].clientImage);
+                              e.currentTarget.style.display = 'none';
+                            }}
+                            style={{
+                              imageRendering: 'auto',
+                              WebkitFontSmoothing: 'antialiased',
+                              MozOsxFontSmoothing: 'grayscale'
+                            }}
                           />
                         </div>
                         <div>

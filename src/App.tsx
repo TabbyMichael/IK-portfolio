@@ -149,6 +149,26 @@ const App: React.FC = () => {
       initPerformanceMonitoring();
     }
     
+    // Preload critical testimonial images
+    const testimonialImages = [
+      '/assets/webp/dr-sarah-kimani.webp',
+      '/assets/webp/michael-ochieng.webp',
+      '/assets/webp/james-mwangi.webp',
+      '/assets/webp/grace-wanjiku.webp',
+      '/assets/webp/dr-peter-kinyanjui.webp',
+      '/assets/webp/catherine-njeri.webp',
+      '/assets/webp/robert-kamau.webp',
+      '/assets/webp/mary-akinyi.webp'
+    ];
+    
+    // Preload images with error handling
+    testimonialImages.forEach(src => {
+      const img = new Image();
+      img.onload = () => console.log(`✓ Preloaded: ${src}`);
+      img.onerror = () => console.error(`✗ Failed to preload: ${src}`);
+      img.src = src;
+    });
+    
     // Log initialization status
     console.log('🚀 Portfolio app initialized with:', {
       environment: import.meta.env.MODE,
