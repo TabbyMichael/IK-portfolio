@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight, Award, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import OptimizedImage from '../common/OptimizedImage';
 
 interface Testimonial {
   id: number;
@@ -24,7 +25,7 @@ const featuredTestimonials: Testimonial[] = [
     role: 'Director of Digital Health',
     company: 'Nairobi Medical Center',
     content: 'Ian transformed our patient management system completely. The new web application reduced appointment booking time by 70% and improved our operational efficiency dramatically.',
-    image: '/assets/webp/Dr. Sarah Kimani.webp',
+    image: '/assets/webp/dr-sarah-kimani.webp',
     rating: 5,
     projectType: 'Healthcare Web App',
     projectUrl: 'https://nmc-patient-portal.netlify.app',
@@ -37,7 +38,7 @@ const featuredTestimonials: Testimonial[] = [
     role: 'CEO & Founder',
     company: 'EcoTech Solutions',
     content: 'Working with Ian on our e-commerce platform was a game-changer. He delivered a robust system that handles our inventory, payments, and customer management seamlessly.',
-    image: '/assets/webp/Michael Ochieng.webp',
+    image: '/assets/webp/michael-ochieng.webp',
     rating: 5,
     projectType: 'E-commerce Platform',
     projectUrl: 'https://ecotech-kenya.com',
@@ -50,7 +51,7 @@ const featuredTestimonials: Testimonial[] = [
     role: 'Restaurant Owner',
     company: "Mama Njeri's Kitchen",
     content: "The POS system Ian built for us has streamlined our entire restaurant operation. Order management, inventory tracking, and sales reporting are now automated.",
-    image: '/assets/webp/James Mwangi.webp',
+    image: '/assets/webp/james-mwangi.webp',
     rating: 5,
     projectType: 'POS System',
     featured: true,
@@ -141,18 +142,14 @@ export default function FeaturedTestimonials() {
           {/* Client Info */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-3 border-accent/30 flex-shrink-0 image-container testimonial-lg">
-              <img
+              <OptimizedImage
                 src={featuredTestimonials[currentIndex].image}
                 alt={featuredTestimonials[currentIndex].name}
-                className="responsive-image testimonial-image"
-                loading="lazy"
-                width="112"
-                height="112"
-                style={{
-                  imageRendering: 'auto',
-                  WebkitFontSmoothing: 'antialiased',
-                  MozOsxFontSmoothing: 'grayscale'
-                }}
+                width={112}
+                height={112}
+                className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+                priority={true}
+                quality={90}
               />
             </div>
             <div className="text-center md:text-left">
