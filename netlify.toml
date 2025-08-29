@@ -6,12 +6,10 @@
   # Ignore cache for build
   ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- '*.js' '*.ts' '*.jsx' '*.tsx' '*.json' '*.webp' '*.png' '*.jpg'"
 
-# Force rebuild when images change
+# Build environment variables
 [build.environment]
   # Prevent build failures from exposed environment variables
   SECRETS_SCAN_OMIT_KEYS = "VITE_GA_TRACKING_ID"
-  # Force asset refresh
-  NODE_OPTIONS = "--max-old-space-size=4096"
 
 # Redirect rules for SPA routing
 [[redirects]]
@@ -62,10 +60,6 @@
     Cache-Control = "public, max-age=31536000, immutable"
     Content-Type = "image/webp"
     Access-Control-Allow-Origin = "*"
-
-# Prevent build failures from exposed environment variables
-[build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "VITE_GA_TRACKING_ID"
 
 # Build processing settings
 [build.processing]
