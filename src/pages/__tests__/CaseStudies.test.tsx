@@ -9,12 +9,24 @@ jest.mock('../../utils/analytics', () => ({
   event: jest.fn(),
 }));
 
-// Mock framer-motion
+// Mock framer-motion with animation prop filtering
+interface MockMotionProps {
+  children?: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  [key: string]: unknown;
+}
+
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: React.ComponentProps<'div'>) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: React.ComponentProps<'button'>) => <button {...props}>{children}</button>,
-    section: ({ children, ...props }: React.ComponentProps<'section'>) => <section {...props}>{children}</section>,
+    div: ({ children, ...props }: MockMotionProps) => <div {...props}>{children}</div>,
+    button: ({ children, ...props }: MockMotionProps) => <button {...props}>{children}</button>,
+    section: ({ children, ...props }: MockMotionProps) => <section {...props}>{children}</section>,
+    a: ({ children, ...props }: MockMotionProps) => <a {...props}>{children}</a>,
+    article: ({ children, ...props }: MockMotionProps) => <article {...props}>{children}</article>,
+    span: ({ children, ...props }: MockMotionProps) => <span {...props}>{children}</span>,
+    li: ({ children, ...props }: MockMotionProps) => <li {...props}>{children}</li>,
+    blockquote: ({ children, ...props }: MockMotionProps) => <blockquote {...props}>{children}</blockquote>,
   },
   AnimatePresence: ({ children, ...props }: { children: React.ReactNode }) => <div {...props}>{children}</div>,
 }));

@@ -9,17 +9,26 @@ jest.mock('framer-motion', () => ({
       style?: React.CSSProperties;
       animate?: unknown;
       transition?: unknown;
-    } & React.ComponentProps<'div'>) => (
-      <div 
-        {...props} 
-        style={style}
-        data-testid="loading-spinner"
-        data-animate={JSON.stringify(animate)}
-        data-transition={JSON.stringify(transition)}
-      >
-        {children}
-      </div>
-    ),
+    } & React.ComponentProps<'div'>) => {
+      // Handle Infinity in transition for JSON serialization
+      const transitionWithInfinity = transition && typeof transition === 'object' 
+        ? JSON.stringify(transition, (_key, value) => 
+            value === Infinity ? 'Infinity' : value
+          )
+        : JSON.stringify(transition);
+      
+      return (
+        <div 
+          {...props} 
+          style={style}
+          data-testid="loading-spinner"
+          data-animate={JSON.stringify(animate)}
+          data-transition={transitionWithInfinity}
+        >
+          {children}
+        </div>
+      );
+    },
   },
 }));
 
@@ -181,7 +190,9 @@ describe('LoadingSpinner Component', () => {
       render(<LoadingSpinner />);
       
       const spinner = screen.getByTestId('loading-spinner');
-      const transitionData = JSON.parse(spinner.getAttribute('data-transition') || '{}');
+      const transitionData = JSON.parse(spinner.getAttribute('data-transition') || '{}', (_key, value) => 
+        value === 'Infinity' ? Infinity : value
+      );
       expect(transitionData).toEqual({
         duration: 1,
         repeat: Infinity,
@@ -193,7 +204,9 @@ describe('LoadingSpinner Component', () => {
       render(<LoadingSpinner />);
       
       const spinner = screen.getByTestId('loading-spinner');
-      const transitionData = JSON.parse(spinner.getAttribute('data-transition') || '{}');
+      const transitionData = JSON.parse(spinner.getAttribute('data-transition') || '{}', (_key, value) => 
+        value === 'Infinity' ? Infinity : value
+      );
       expect(transitionData.repeat).toBe(Infinity);
     });
 
@@ -388,7 +401,9 @@ describe('LoadingSpinner Component', () => {
         const spinner = screen.getByTestId('loading-spinner');
         
         const animateData = JSON.parse(spinner.getAttribute('data-animate') || '{}');
-        const transitionData = JSON.parse(spinner.getAttribute('data-transition') || '{}');
+        const transitionData = JSON.parse(spinner.getAttribute('data-transition') || '{}', (_key, value) => 
+          value === 'Infinity' ? Infinity : value
+        );
         
         expect(animateData.rotate).toBe(360);
         expect(transitionData.repeat).toBe(Infinity);

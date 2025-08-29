@@ -9,17 +9,42 @@ jest.mock('lucide-react', () => ({
 
 // Mock IntersectionObserver
 const mockIntersectionObserver = jest.fn();
-mockIntersectionObserver.mockReturnValue({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+const mockObserve = jest.fn();
+const mockUnobserve = jest.fn();
+const mockDisconnect = jest.fn();
+
+mockIntersectionObserver.mockImplementation((callback, options) => {
+  return {
+    observe: mockObserve,
+    unobserve: mockUnobserve,
+    disconnect: mockDisconnect,
+    root: null,
+    rootMargin: '0px',
+    thresholds: [0],
+    ...options,
+    callback
+  };
 });
-window.IntersectionObserver = mockIntersectionObserver;
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: mockIntersectionObserver,
+});
+
+Object.defineProperty(global, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: mockIntersectionObserver,
+});
 
 describe('OptimizedImage Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockIntersectionObserver.mockClear();
+    mockObserve.mockClear();
+    mockUnobserve.mockClear();
+    mockDisconnect.mockClear();
   });
 
   describe('Basic Rendering', () => {
@@ -80,13 +105,6 @@ describe('OptimizedImage Component', () => {
 
   describe('Lazy Loading', () => {
     it('implements lazy loading by default', () => {
-      const mockObserve = jest.fn();
-      mockIntersectionObserver.mockReturnValue({
-        observe: mockObserve,
-        unobserve: jest.fn(),
-        disconnect: jest.fn(),
-      });
-
       render(
         <OptimizedImage 
           src="/test-image.jpg" 
@@ -133,14 +151,24 @@ describe('OptimizedImage Component', () => {
     it('loads image when intersection observer triggers', () => {
       let intersectionCallback: (entries: { isIntersecting: boolean; target: Element }[]) => void = () => {};
       
-      mockIntersectionObserver.mockImplementation((callback) => {
+      // Mock the implementation for this specific test
+      const testMockIntersectionObserver = jest.fn((callback) => {
         intersectionCallback = callback;
         return {
           observe: jest.fn(),
           unobserve: jest.fn(),
           disconnect: jest.fn(),
+          root: null,
+          rootMargin: '0px',
+          thresholds: [0],
+          takeRecords: jest.fn(() => [])
         };
       });
+      
+      // Temporarily replace the global mock
+      const originalIO = global.IntersectionObserver;
+      (global as typeof globalThis).IntersectionObserver = testMockIntersectionObserver;
+      (window as Window & typeof globalThis).IntersectionObserver = testMockIntersectionObserver;
 
       render(
         <OptimizedImage 
@@ -156,6 +184,10 @@ describe('OptimizedImage Component', () => {
 
       const picture = document.querySelector('picture');
       expect(picture).toBeInTheDocument();
+      
+      // Restore original mock
+      (global as typeof globalThis).IntersectionObserver = originalIO;
+      (window as Window & typeof globalThis).IntersectionObserver = originalIO;
     });
   });
 

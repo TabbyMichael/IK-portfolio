@@ -39,8 +39,7 @@ describe('Projects Page', () => {
     it('renders the main projects page container', () => {
       renderWithRouter(<Projects />);
       
-      const container = screen.getByRole('main', { hidden: true }) || 
-                       document.querySelector('.pt-20.pb-20');
+      const container = document.querySelector('.pt-20.pb-20');
       expect(container).toBeInTheDocument();
     });
 
