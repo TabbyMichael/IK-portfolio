@@ -3,6 +3,15 @@
   command = "npm run build"
   # Directory to publish
   publish = "dist"
+  # Ignore cache for build
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- '*.js' '*.ts' '*.jsx' '*.tsx' '*.json' '*.webp' '*.png' '*.jpg'"
+
+# Force rebuild when images change
+[build.environment]
+  # Prevent build failures from exposed environment variables
+  SECRETS_SCAN_OMIT_KEYS = "VITE_GA_TRACKING_ID"
+  # Force asset refresh
+  NODE_OPTIONS = "--max-old-space-size=4096"
 
 # Redirect rules for SPA routing
 [[redirects]]
@@ -20,33 +29,39 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; frame-src 'self';"
 
-# Cache static assets
+# Cache static assets with proper headers
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
 
-# Cache images
+# Cache images with proper MIME types
 [[headers]]
   for = "/*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000"
+    Content-Type = "image/png"
 
 [[headers]]
   for = "/*.jpg"
   [headers.values]
     Cache-Control = "public, max-age=31536000"
+    Content-Type = "image/jpeg"
 
 [[headers]]
   for = "/*.webp"
   [headers.values]
     Cache-Control = "public, max-age=31536000"
+    Content-Type = "image/webp"
 
-# Environment variables for build (uncomment and set your actual values)
-# [build.environment]
-#   VITE_GA_TRACKING_ID = "G-XXXXXXXXXX"
-#   VITE_SENTRY_DSN = "your-sentry-dsn-here"
-#   VITE_ENVIRONMENT = "production"
+# Specific headers for webp assets directory
+[[headers]]
+  for = "/assets/webp/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "image/webp"
+    Access-Control-Allow-Origin = "*"
 
 # Prevent build failures from exposed environment variables
 [build.environment]

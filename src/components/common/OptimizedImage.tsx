@@ -34,6 +34,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(!lazy || priority);
+  const [attemptedSrc, setAttemptedSrc] = useState(src);
   const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -76,11 +77,29 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   const handleError = () => {
     setIsLoading(false);
+    
+    // Try fallback strategies
+    if (attemptedSrc === src) {
+      // First attempt failed, try without leading slash if present
+      const fallbackSrc = src.startsWith('/') ? src.substring(1) : `/${src}`;
+      console.warn(`Image load failed for ${src}, trying fallback: ${fallbackSrc}`);
+      setAttemptedSrc(fallbackSrc);
+      return;
+    }
+    
+    // All attempts failed
     setHasError(true);
-    const errorMessage = 'Failed to load image';
-    console.warn('Image load error:', { src, alt, error: errorMessage });
+    const errorMessage = `Failed to load image: ${src}`;
+    console.error('Image load error:', { originalSrc: src, attemptedSrc, error: errorMessage });
     onError?.(errorMessage);
   };
+
+  // Reset state when src changes
+  useEffect(() => {
+    setIsLoading(true);
+    setHasError(false);
+    setAttemptedSrc(src);
+  }, [src]);
 
   // Placeholder dimensions
   const placeholderAspectRatio = width && height ? (height / width) * 100 : 56.25; // Default to 16:9
@@ -97,7 +116,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     >
       {/* Loading placeholder */}
       {isLoading && showPlaceholder && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center">
           <Loader2 className="w-8 h-8 text-gray-400 animate-spin" aria-hidden="true" />
           <span className="sr-only">Loading image: {alt}</span>
         </div>
@@ -105,18 +124,19 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
       {/* Error state */}
       {hasError && (
-        <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center text-gray-500">
+        <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 flex flex-col items-center justify-center text-gray-500 dark:text-gray-400">
           <AlertCircle className="w-8 h-8 mb-2" aria-hidden="true" />
-          <span className="text-sm text-center px-2">Failed to load image</span>
+          <span className="text-sm text-center px-2">Image unavailable</span>
+          <span className="text-xs text-center px-2 mt-1 opacity-70">{alt}</span>
           <span className="sr-only">Error loading image: {alt}</span>
         </div>
       )}
 
       {/* Actual image - simplified for static assets */}
-      {isInView && (
+      {isInView && !hasError && (
         <img
           ref={imgRef}
-          src={src}
+          src={attemptedSrc}
           alt={alt}
           width={width}
           height={height}

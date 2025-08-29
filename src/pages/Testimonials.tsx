@@ -2,7 +2,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Star, Calendar, Filter, Award, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import OptimizedImage from '../components/common/OptimizedImage';
 
 interface Testimonial {
   id: number;
@@ -299,14 +298,22 @@ const Testimonials: React.FC = () => {
                   
                   <div className="flex items-center justify-center gap-4">
                     <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-accent/20 flex-shrink-0">
-                      <OptimizedImage
+                      <img
                         src={filteredTestimonials[currentIndex]?.image}
                         alt={filteredTestimonials[currentIndex]?.name}
-                        width={80}
-                        height={80}
                         className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                        priority={true}
-                        quality={90}
+                        loading="eager"
+                        width="80"
+                        height="80"
+                        onError={(e) => {
+                          console.error('Failed to load image:', filteredTestimonials[currentIndex]?.image);
+                          e.currentTarget.style.display = 'none';
+                        }}
+                        style={{
+                          imageRendering: 'auto',
+                          WebkitFontSmoothing: 'antialiased',
+                          MozOsxFontSmoothing: 'grayscale'
+                        }}
                       />
                     </div>
                     <div className="text-left">
@@ -411,14 +418,22 @@ const Testimonials: React.FC = () => {
                 
                 <div className="flex items-center mb-4">
                   <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-accent/20 flex-shrink-0">
-                    <OptimizedImage
+                    <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      width={56}
-                      height={56}
                       className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                      priority={false}
-                      quality={85}
+                      loading="lazy"
+                      width="56"
+                      height="56"
+                      onError={(e) => {
+                        console.error('Failed to load image:', testimonial.image);
+                        e.currentTarget.style.display = 'none';
+                      }}
+                      style={{
+                        imageRendering: 'auto',
+                        WebkitFontSmoothing: 'antialiased',
+                        MozOsxFontSmoothing: 'grayscale'
+                      }}
                     />
                   </div>
                   <div className="ml-4 flex-1">

@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight, Award, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import OptimizedImage from '../common/OptimizedImage';
 
 interface Testimonial {
   id: number;
@@ -142,14 +141,22 @@ export default function FeaturedTestimonials() {
           {/* Client Info */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-3 border-accent/30 flex-shrink-0 image-container testimonial-lg">
-              <OptimizedImage
+              <img
                 src={featuredTestimonials[currentIndex].image}
                 alt={featuredTestimonials[currentIndex].name}
-                width={112}
-                height={112}
                 className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
-                priority={true}
-                quality={90}
+                loading="eager"
+                width="112"
+                height="112"
+                onError={(e) => {
+                  console.error('Failed to load image:', featuredTestimonials[currentIndex].image);
+                  e.currentTarget.style.display = 'none';
+                }}
+                style={{
+                  imageRendering: 'auto',
+                  WebkitFontSmoothing: 'antialiased',
+                  MozOsxFontSmoothing: 'grayscale'
+                }}
               />
             </div>
             <div className="text-center md:text-left">
