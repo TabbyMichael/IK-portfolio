@@ -15,15 +15,37 @@ const mockArc = jest.fn();
 const mockFill = jest.fn();
 const mockFillRect = jest.fn();
 const mockCancelAnimationFrame = jest.fn();
+
+// Track animation frame calls to prevent infinite loops
+let animationFrameCallCount = 0;
+const maxAnimationFrames = 3; // Limit animation frames in tests
+
 const mockRequestAnimationFrame = jest.fn((callback) => {
-  // Immediately call callback to avoid infinite loops in tests
-  callback(0);
-  return 1;
+  // Only call callback for a limited number of times to prevent infinite loops
+  if (animationFrameCallCount < maxAnimationFrames) {
+    animationFrameCallCount++;
+    // Use setTimeout to make it async and prevent stack overflow
+    setTimeout(() => callback(performance.now()), 0);
+  }
+  return animationFrameCallCount;
 });
 
 // Mock HTMLCanvasElement methods
 Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
   value: mockGetContext,
+});
+
+// Mock canvas width and height properties to prevent infinite loops
+Object.defineProperty(HTMLCanvasElement.prototype, 'width', {
+  get: () => 1024,
+  set: () => {}, // no-op setter
+  configurable: true,
+});
+
+Object.defineProperty(HTMLCanvasElement.prototype, 'height', {
+  get: () => 768,
+  set: () => {}, // no-op setter
+  configurable: true,
 });
 
 // Mock window methods
@@ -53,6 +75,8 @@ const mockUseTheme = useTheme as jest.MockedFunction<typeof useTheme>;
 describe('ParticleBackground Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    animationFrameCallCount = 0; // Reset animation frame counter
+    
     mockUseTheme.mockReturnValue({
       theme: 'dark',
       toggleTheme: jest.fn(),
@@ -67,8 +91,11 @@ describe('ParticleBackground Component', () => {
       arc: mockArc,
       fill: mockFill,
       canvas: {
-        width: 1024,
-        height: 768,
+        // Use getters for width/height to prevent infinite loops
+        get width() { return 1024; },
+        get height() { return 768; },
+        set width(_value: number) { /* no-op */ },
+        set height(_value: number) { /* no-op */ }
       },
     });
   });

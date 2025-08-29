@@ -113,11 +113,20 @@ describe('About Page', () => {
       href: '',
       download: '',
       click: jest.fn(),
+      parentNode: document.body,
+      nodeType: 1,
+      nodeName: 'A',
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+      setAttribute: jest.fn(),
+      getAttribute: jest.fn(),
+      style: {}
     } as unknown as HTMLAnchorElement;
     
     createElementSpy.mockReturnValue(mockAnchor);
-    appendChildSpy.mockImplementation(() => mockAnchor);
-    removeChildSpy.mockImplementation(() => mockAnchor);
+    appendChildSpy.mockReturnValue(mockAnchor);
+    removeChildSpy.mockReturnValue(mockAnchor);
 
     render(<About />);
 
@@ -187,9 +196,11 @@ describe('About Page', () => {
   it('displays all resume options with correct values', () => {
     render(<About />);
 
-    const dataSpecialistOption = screen.getByDisplayValue('/Data Specialist.pdf');
-    const uxuiOption = screen.getByDisplayValue('/UXUI.pdf');
-    const generalOption = screen.getByDisplayValue('/Kibugu ian (1).pdf');
+    // Use getAllByRole to find options and then check their values
+    const options = screen.getAllByRole('option');
+    const dataSpecialistOption = options.find(option => option.getAttribute('value') === '/Data Specialist.pdf');
+    const uxuiOption = options.find(option => option.getAttribute('value') === '/UXUI.pdf');
+    const generalOption = options.find(option => option.getAttribute('value') === '/Kibugu ian (1).pdf');
 
     expect(dataSpecialistOption).toBeInTheDocument();
     expect(uxuiOption).toBeInTheDocument();

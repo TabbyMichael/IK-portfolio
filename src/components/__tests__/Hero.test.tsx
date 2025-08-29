@@ -20,11 +20,6 @@ jest.mock('react-type-animation', () => ({
 // Mock framer-motion
 interface MockMotionProps {
   children: React.ReactNode;
-  whileHover?: unknown;
-  whileTap?: unknown;
-  initial?: unknown;
-  animate?: unknown;
-  transition?: unknown;
   onClick?: () => void;
   className?: string;
 }
@@ -87,16 +82,22 @@ describe('Hero Component', () => {
       </TestWrapper>
     );
 
-    const githubLink = screen.getByLabelText(/github/i);
+    const githubLink = screen.getAllByRole('link').find(link => 
+      link.getAttribute('href') === 'https://github.com/TabbyMichael'
+    );
     expect(githubLink).toHaveAttribute('href', 'https://github.com/TabbyMichael');
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
 
-    const linkedinLink = screen.getByLabelText(/linkedin/i);
+    const linkedinLink = screen.getAllByRole('link').find(link => 
+      link.getAttribute('href')?.includes('linkedin.com')
+    );
     expect(linkedinLink).toHaveAttribute('href', expect.stringContaining('linkedin.com'));
     expect(linkedinLink).toHaveAttribute('target', '_blank');
 
-    const emailLink = screen.getByLabelText(/mail/i);
+    const emailLink = screen.getAllByRole('link').find(link => 
+      link.getAttribute('href') === 'mailto:kibuguzian@gmail.com'
+    );
     expect(emailLink).toHaveAttribute('href', 'mailto:kibuguzian@gmail.com');
   });
 

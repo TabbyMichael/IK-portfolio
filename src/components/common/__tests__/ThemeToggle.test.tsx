@@ -103,11 +103,13 @@ describe('ThemeToggle Component', () => {
         setTheme: jest.fn(),
       });
 
-      render(<ThemeToggle />);
+      const { unmount } = render(<ThemeToggle />);
       const moonIcon = screen.getByTestId('moon-icon');
       expect(moonIcon).toHaveClass('w-6');
       expect(moonIcon).toHaveClass('h-6');
       expect(moonIcon).toHaveClass('text-yellow-300');
+      
+      unmount();
 
       mockUseTheme.mockReturnValue({
         theme: 'light',
@@ -115,8 +117,7 @@ describe('ThemeToggle Component', () => {
         setTheme: jest.fn(),
       });
 
-      const { rerender } = render(<ThemeToggle />);
-      rerender(<ThemeToggle />);
+      render(<ThemeToggle />);
       const sunIcon = screen.getByTestId('sun-icon');
       expect(sunIcon).toHaveClass('w-6');
       expect(sunIcon).toHaveClass('h-6');
