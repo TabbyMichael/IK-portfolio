@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
-import { trackFormSubmission } from '../../utils/analytics';
+import { trackFormSubmission } from '../../../core/utils/analytics';
 
 interface FormData {
   name: string;

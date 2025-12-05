@@ -2,10 +2,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
-import * as analytics from '../utils/analytics';
+import * as analytics from '../core/utils/analytics';
 
 // Mock analytics
-jest.mock('../utils/analytics', () => ({
+jest.mock('../core/utils/analytics', () => ({
   event: jest.fn(),
   trackFormSubmission: jest.fn(),
 }));

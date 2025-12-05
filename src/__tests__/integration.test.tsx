@@ -1,28 +1,28 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '../contexts/ThemeContext';
+import { ThemeProvider } from '../core/contexts/ThemeContext';
 import App from '../App';
 
 // Mock modules that cause issues in tests
-jest.mock('../components/ParticleBackground', () => {
+jest.mock('../core/components/ParticleBackground', () => {
   return function MockParticleBackground() {
     return <div data-testid="particle-background">Particle Background</div>;
   };
 });
 
-jest.mock('../utils/analytics', () => ({
+jest.mock('../core/utils/analytics', () => ({
   initGA: jest.fn(),
   usePageTracking: jest.fn(),
   trackFormSubmission: jest.fn(),
   trackEvent: jest.fn(),
 }));
 
-jest.mock('../utils/sentry', () => ({
+jest.mock('../core/utils/sentry', () => ({
   initSentry: jest.fn(),
 }));
 
-jest.mock('../utils/performance', () => ({
+jest.mock('../core/utils/performance', () => ({
   initPerformanceMonitoring: jest.fn(),
 }));
 

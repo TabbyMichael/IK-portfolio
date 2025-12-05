@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '../../contexts/ThemeContext';
-import Home from '../Home';
+import { ThemeProvider } from '../../../core/contexts/ThemeContext';
+import Home from './Home';
 
 // Mock all child components
-jest.mock('../../components/Hero', () => {
+jest.mock('../../../core/components/Hero', () => {
   return function MockHero() {
     return (
       <div data-testid="hero-section">
@@ -16,7 +16,7 @@ jest.mock('../../components/Hero', () => {
   };
 });
 
-jest.mock('../../components/home/FeaturedSkills', () => {
+jest.mock('../components/FeaturedSkills', () => {
   return function MockFeaturedSkills() {
     return (
       <div data-testid="featured-skills">
@@ -27,7 +27,7 @@ jest.mock('../../components/home/FeaturedSkills', () => {
   };
 });
 
-jest.mock('../../components/home/FeaturedProjects', () => {
+jest.mock('../components/FeaturedProjects', () => {
   return function MockFeaturedProjects() {
     return (
       <div data-testid="featured-projects">
@@ -38,7 +38,7 @@ jest.mock('../../components/home/FeaturedProjects', () => {
   };
 });
 
-jest.mock('../../components/home/FeaturedTestimonials', () => {
+jest.mock('../components/FeaturedTestimonials', () => {
   return function MockFeaturedTestimonials() {
     return (
       <div data-testid="featured-testimonials">
@@ -49,7 +49,7 @@ jest.mock('../../components/home/FeaturedTestimonials', () => {
   };
 });
 
-jest.mock('../../components/home/Newsletter', () => {
+jest.mock('../components/Newsletter', () => {
   return function MockNewsletter() {
     return (
       <div data-testid="newsletter-section">

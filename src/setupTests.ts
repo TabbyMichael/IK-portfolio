@@ -97,26 +97,15 @@ const mockImportMetaEnv = {
   PROD: false,
   MODE: 'test',
   VITE_GA_TRACKING_ID: 'test-ga-id',
-  VITE_SENTRY_DSN: 'test-sentry-dsn',
+  VITE_SENTRY_DSN: 'test-sentry-dsN',
   VITE_ENVIRONMENT: 'test',
   VITE_ENABLE_PERFORMANCE_MONITORING: 'true'
 };
 
-// Define import.meta globally
-Object.defineProperty(globalThis, 'import', {
+Object.defineProperty(globalThis, 'import.meta', {
   value: {
-    meta: {
-      env: mockImportMetaEnv
-    }
+    env: mockImportMetaEnv,
   },
   writable: true,
-  configurable: true
+  configurable: true,
 });
-
-// Silence console.log in tests unless needed
-const originalConsoleLog = console.log;
-console.log = (...args) => {
-  if (process.env.JEST_VERBOSE === 'true') {
-    originalConsoleLog(...args);
-  }
-};
