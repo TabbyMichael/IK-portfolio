@@ -1,10 +1,10 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ContactForm from '../contact/ContactForm';
+import ContactForm from '../../../features/contact/components/ContactForm';
 
 // Mock analytics
-import * as analytics from '../../utils/analytics';
-jest.mock('../../utils/analytics', () => ({
+import * as analytics from '../../../core/utils/analytics';
+jest.mock('../../../core/utils/analytics', () => ({
   trackFormSubmission: jest.fn(),
 }));
 

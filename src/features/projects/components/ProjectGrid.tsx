@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, X, Tag } from 'lucide-react';
-import { allProjects } from '../../data';
+import { allProjects } from '../../core/data';
 import ProjectCard from './ProjectCard';
-import Pagination from '../common/Pagination';
+import Pagination from '../../core/components/Pagination';
 
 const ITEMS_PER_PAGE = 12;
 

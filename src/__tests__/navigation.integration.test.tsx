@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
 
 // Mock all external dependencies
-jest.mock('../utils/analytics', () => ({
+jest.mock('../core/utils/analytics', () => ({
   event: jest.fn(),
   trackFormSubmission: jest.fn(),
 }));

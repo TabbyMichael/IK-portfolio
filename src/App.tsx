@@ -1,79 +1,79 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { lazy, Suspense, useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
-import ParticleBackground from './components/ParticleBackground';
-import ErrorBoundary from './components/common/ErrorBoundary';
-import SEOHelmet from './components/SEO/SEOHelmet';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { initGA, usePageTracking } from './utils/analytics';
-import { initSentry } from './utils/sentry';
-import { initPerformanceMonitoring } from './utils/performance';
+import Navbar from './core/components/Navbar';
+import ParticleBackground from './core/components/ParticleBackground';
+import ErrorBoundary from './core/components/ErrorBoundary';
+import SEOHelmet from './core/components/SEO/SEOHelmet';
+import { ThemeProvider } from './core/contexts/ThemeContext';
+import { initGA, usePageTracking } from './core/utils/analytics';
+import { initSentry } from './core/utils/sentry';
+import { initPerformanceMonitoring } from './core/utils/performance';
 import './loader.css';
 import PageLoader from './PageLoader';
 
 // Conditionally import development components
 const GADebug = import.meta.env.DEV 
-  ? lazy(() => import('./components/common/GADebug'))
+  ? lazy(() => import('./core/components/GADebug'))
   : null;
 
 const PerformanceDashboard = import.meta.env.DEV
-  ? lazy(() => import('./components/common/PerformanceDashboard'))
+  ? lazy(() => import('./core/components/PerformanceDashboard'))
   : null;
 
 // Lazy-loaded route components with better error handling
 const routes = [
   { 
     path: '/', 
-    component: lazy(() => import('./pages/Home').catch(() => {
+    component: lazy(() => import('./features/home/pages/Home').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Home" /> };
     })),
     name: 'Home'
   },
   { 
     path: '/about', 
-    component: lazy(() => import('./pages/About').catch(() => {
+    component: lazy(() => import('./features/about/pages/About').catch(() => {
       return { default: () => <RouteErrorFallback routeName="About" /> };
     })),
     name: 'About'
   },
   { 
     path: '/projects', 
-    component: lazy(() => import('./pages/Projects').catch(() => {
+    component: lazy(() => import('./features/projects/pages/Projects').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Projects" /> };
     })),
     name: 'Projects'
   },
   { 
     path: '/contact', 
-    component: lazy(() => import('./pages/Contact').catch(() => {
+    component: lazy(() => import('./features/contact/pages/Contact').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Contact" /> };
     })),
     name: 'Contact'
   },
   { 
     path: '/blog', 
-    component: lazy(() => import('./pages/Blog').catch(() => {
+    component: lazy(() => import('./features/blog/pages/Blog').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Blog" /> };
     })),
     name: 'Blog'
   },
   { 
     path: '/case', 
-    component: lazy(() => import('./pages/CaseStudies').catch(() => {
+    component: lazy(() => import('./features/case-studies/pages/CaseStudies').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Case Studies" /> };
     })),
     name: 'Case Studies'
   },
   { 
     path: '/news', 
-    component: lazy(() => import('./pages/Newsletter').catch(() => {
+    component: lazy(() => import('./features/newsletter/pages/Newsletter').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Newsletter" /> };
     })),
     name: 'Newsletter'
   },
   { 
     path: '/testimonials', 
-    component: lazy(() => import('./pages/Testimonials').catch(() => {
+    component: lazy(() => import('./features/testimonials/pages/Testimonials').catch(() => {
       return { default: () => <RouteErrorFallback routeName="Testimonials" /> };
     })),
     name: 'Testimonials'
